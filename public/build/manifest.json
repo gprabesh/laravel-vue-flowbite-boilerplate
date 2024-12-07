@@ -1,0 +1,141 @@
+{
+  "_CardBoxComponentEmpty-CJb-FcGL.js": {
+    "file": "assets/CardBoxComponentEmpty-CJb-FcGL.js",
+    "name": "CardBoxComponentEmpty",
+    "imports": [
+      "resources/js/main.js"
+    ]
+  },
+  "_FormCheckRadioGroup-BUDlvb44.js": {
+    "file": "assets/FormCheckRadioGroup-BUDlvb44.js",
+    "name": "FormCheckRadioGroup",
+    "imports": [
+      "_FormField-B1opnesB.js",
+      "resources/js/main.js"
+    ]
+  },
+  "_FormField-B1opnesB.js": {
+    "file": "assets/FormField-B1opnesB.js",
+    "name": "FormField",
+    "imports": [
+      "resources/js/main.js"
+    ]
+  },
+  "_FormFilePicker-B8zHC096.js": {
+    "file": "assets/FormFilePicker-B8zHC096.js",
+    "name": "FormFilePicker",
+    "imports": [
+      "resources/js/main.js"
+    ]
+  },
+  "_LayoutGuest-D_Fm-9rn.js": {
+    "file": "assets/LayoutGuest-D_Fm-9rn.js",
+    "name": "LayoutGuest",
+    "imports": [
+      "resources/js/main.js"
+    ]
+  },
+  "_SectionTitle-RoVXBdKn.js": {
+    "file": "assets/SectionTitle-RoVXBdKn.js",
+    "name": "SectionTitle",
+    "imports": [
+      "resources/js/main.js"
+    ]
+  },
+  "resources/js/main.js": {
+    "file": "assets/main-Bkm0V6GQ.js",
+    "name": "main",
+    "src": "resources/js/main.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/views/TablesView.vue",
+      "resources/js/views/FormsView.vue",
+      "resources/js/views/ProfileView.vue",
+      "resources/js/views/UiView.vue",
+      "resources/js/views/ResponsiveView.vue",
+      "resources/js/views/LoginView.vue",
+      "resources/js/views/ErrorView.vue"
+    ],
+    "css": [
+      "assets/main-BjwmxfMu.css"
+    ]
+  },
+  "resources/js/views/ErrorView.vue": {
+    "file": "assets/ErrorView-CgLAE4tH.js",
+    "name": "ErrorView",
+    "src": "resources/js/views/ErrorView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_LayoutGuest-D_Fm-9rn.js",
+      "resources/js/main.js"
+    ]
+  },
+  "resources/js/views/FormsView.vue": {
+    "file": "assets/FormsView-CdG16y4U.js",
+    "name": "FormsView",
+    "src": "resources/js/views/FormsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.js",
+      "_FormCheckRadioGroup-BUDlvb44.js",
+      "_FormFilePicker-B8zHC096.js",
+      "_FormField-B1opnesB.js",
+      "_SectionTitle-RoVXBdKn.js"
+    ]
+  },
+  "resources/js/views/LoginView.vue": {
+    "file": "assets/LoginView-BqqBkfKT.js",
+    "name": "LoginView",
+    "src": "resources/js/views/LoginView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.js",
+      "_LayoutGuest-D_Fm-9rn.js",
+      "_FormField-B1opnesB.js"
+    ]
+  },
+  "resources/js/views/ProfileView.vue": {
+    "file": "assets/ProfileView-Cm49pB4P.js",
+    "name": "ProfileView",
+    "src": "resources/js/views/ProfileView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.js",
+      "_FormField-B1opnesB.js",
+      "_FormFilePicker-B8zHC096.js"
+    ]
+  },
+  "resources/js/views/ResponsiveView.vue": {
+    "file": "assets/ResponsiveView-BPphxSs-.js",
+    "name": "ResponsiveView",
+    "src": "resources/js/views/ResponsiveView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_SectionTitle-RoVXBdKn.js",
+      "resources/js/main.js"
+    ]
+  },
+  "resources/js/views/TablesView.vue": {
+    "file": "assets/TablesView-4QQ-Zwnl.js",
+    "name": "TablesView",
+    "src": "resources/js/views/TablesView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.js",
+      "_CardBoxComponentEmpty-CJb-FcGL.js"
+    ]
+  },
+  "resources/js/views/UiView.vue": {
+    "file": "assets/UiView-B1ULeAUF.js",
+    "name": "UiView",
+    "src": "resources/js/views/UiView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.js",
+      "_SectionTitle-RoVXBdKn.js",
+      "_FormField-B1opnesB.js",
+      "_FormCheckRadioGroup-BUDlvb44.js",
+      "_CardBoxComponentEmpty-CJb-FcGL.js"
+    ]
+  }
+}

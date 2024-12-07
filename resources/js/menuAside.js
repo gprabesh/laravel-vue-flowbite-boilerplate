@@ -40,19 +40,9 @@ export default [
     icon: mdiResponsive
   },
   {
-    to: '/',
-    label: 'Styles',
-    icon: mdiPalette
-  },
-  {
     to: '/profile',
     label: 'Profile',
     icon: mdiAccountCircle
-  },
-  {
-    to: '/login',
-    label: 'Login',
-    icon: mdiLock
   },
   {
     to: '/error',
@@ -71,16 +61,4 @@ export default [
       }
     ]
   },
-  {
-    href: 'https://github.com/justboil/admin-one-vue-tailwind',
-    label: 'GitHub',
-    icon: mdiGithub,
-    target: '_blank'
-  },
-  {
-    href: 'https://github.com/justboil/admin-one-react-tailwind',
-    label: 'React version',
-    icon: mdiReact,
-    target: '_blank'
-  }
 ]

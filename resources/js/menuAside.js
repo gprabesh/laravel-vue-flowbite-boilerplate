@@ -11,53 +11,53 @@ import {
   mdiResponsive,
   mdiPalette,
   mdiReact,
-} from '@mdi/js';
+} from "@mdi/js";
 
 export default [
   {
-    to: '/',
+    to: "/",
     icon: mdiMonitor,
-    label: 'Dashboard',
+    label: "Dashboard",
   },
   {
-    to: '/tables',
-    label: 'Tables',
+    to: "/tables",
+    label: "Tables",
     icon: mdiTable,
   },
   {
-    to: '/forms',
-    label: 'Forms',
+    to: "/forms",
+    label: "Forms",
     icon: mdiSquareEditOutline,
   },
   {
-    to: '/ui',
-    label: 'UI',
+    to: "/ui",
+    label: "UI",
     icon: mdiTelevisionGuide,
   },
   {
-    to: '/responsive',
-    label: 'Responsive',
+    to: "/responsive",
+    label: "Responsive",
     icon: mdiResponsive,
   },
   {
-    to: '/profile',
-    label: 'Profile',
+    to: "/profile",
+    label: "Profile",
     icon: mdiAccountCircle,
   },
   {
-    to: '/error',
-    label: 'Error',
+    to: "/error",
+    label: "Error",
     icon: mdiAlertCircle,
   },
   {
-    label: 'Dropdown',
+    label: "Dropdown",
     icon: mdiViewList,
     menu: [
       {
-        label: 'Item One',
+        label: "Item One",
       },
       {
-        label: 'Item Two',
+        label: "Item Two",
       },
     ],
   },

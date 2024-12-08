@@ -1,16 +1,16 @@
-import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
-import { axios } from '../plugins/axios';
+import { defineStore } from "pinia";
+import { ref, computed } from "vue";
+import { axios } from "../plugins/axios";
 
-export const useMainStore = defineStore('main', () => {
-  const userName = ref('John Doe');
-  const userEmail = ref('doe.doe.doe@example.com');
+export const useMainStore = defineStore("main", () => {
+  const userName = ref("John Doe");
+  const userEmail = ref("doe.doe.doe@example.com");
 
   const userAvatar = computed(
     () =>
       `https://api.dicebear.com/7.x/avataaars/svg?seed=${userEmail.value.replace(
         /[^a-z0-9]+/gi,
-        '-'
+        "-"
       )}`
   );
 

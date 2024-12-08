@@ -1,10 +1,10 @@
 <script setup>
-  import { ref, computed } from 'vue';
-  import { RouterLink } from 'vue-router';
-  import { mdiMinus, mdiPlus } from '@mdi/js';
-  import { getButtonColor } from '@/colors.js';
-  import BaseIcon from '@/components/BaseIcon.vue';
-  import AsideMenuList from '@/components/AsideMenuList.vue';
+  import { ref, computed } from "vue";
+  import { RouterLink } from "vue-router";
+  import { mdiMinus, mdiPlus } from "@mdi/js";
+  import { getButtonColor } from "@/colors.js";
+  import BaseIcon from "@/components/BaseIcon.vue";
+  import AsideMenuList from "@/components/AsideMenuList.vue";
 
   const props = defineProps({
     item: {
@@ -14,18 +14,18 @@
     isDropdownList: Boolean,
   });
 
-  const emit = defineEmits(['menu-click']);
+  const emit = defineEmits(["menu-click"]);
 
   const hasColor = computed(() => props.item && props.item.color);
 
   const asideMenuItemActiveStyle = computed(() =>
-    hasColor.value ? '' : 'aside-menu-item-active font-bold'
+    hasColor.value ? "" : "aside-menu-item-active font-bold"
   );
 
   const isDropdownActive = ref(false);
 
   const componentClass = computed(() => [
-    props.isDropdownList ? 'py-3 px-6 text-sm' : 'py-3',
+    props.isDropdownList ? "py-3 px-6 text-sm" : "py-3",
     hasColor.value
       ? getButtonColor(props.item.color, false, true)
       : `aside-menu-item dark:text-slate-300 dark:hover:text-white`,
@@ -34,7 +34,7 @@
   const hasDropdown = computed(() => !!props.item.menu);
 
   const menuClick = (event) => {
-    emit('menu-click', event, props.item);
+    emit("menu-click", event, props.item);
 
     if (hasDropdown.value) {
       isDropdownActive.value = !isDropdownActive.value;

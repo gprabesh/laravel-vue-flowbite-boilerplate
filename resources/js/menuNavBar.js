@@ -10,12 +10,12 @@ import {
   mdiThemeLightDark,
   mdiGithub,
   mdiReact,
-} from '@mdi/js';
+} from "@mdi/js";
 
 export default [
   {
     icon: mdiThemeLightDark,
-    label: 'Light/Dark',
+    label: "Light/Dark",
     isDesktopNoLabel: true,
     isToggleLightDark: true,
   },
@@ -24,23 +24,23 @@ export default [
     menu: [
       {
         icon: mdiAccount,
-        label: 'My Profile',
-        to: '/profile',
+        label: "My Profile",
+        to: "/profile",
       },
       {
         icon: mdiCogOutline,
-        label: 'Settings',
+        label: "Settings",
       },
       {
         icon: mdiEmail,
-        label: 'Messages',
+        label: "Messages",
       },
       {
         isDivider: true,
       },
       {
         icon: mdiLogout,
-        label: 'Log Out',
+        label: "Log Out",
         isLogout: true,
       },
     ],

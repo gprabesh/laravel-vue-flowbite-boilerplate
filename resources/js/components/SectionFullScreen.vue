@@ -1,17 +1,17 @@
 <script setup>
-  import { computed } from 'vue';
-  import { useDarkModeStore } from '@/stores/darkMode.js';
+  import { computed } from "vue";
+  import { useDarkModeStore } from "@/stores/darkMode.js";
   import {
     gradientBgPurplePink,
     gradientBgDark,
     gradientBgPinkRed,
-  } from '@/colors.js';
+  } from "@/colors.js";
 
   const props = defineProps({
     bg: {
       type: String,
       required: true,
-      validator: (value) => ['purplePink', 'pinkRed'].includes(value),
+      validator: (value) => ["purplePink", "pinkRed"].includes(value),
     },
   });
 
@@ -21,13 +21,13 @@
     }
 
     switch (props.bg) {
-      case 'purplePink':
+      case "purplePink":
         return gradientBgPurplePink;
-      case 'pinkRed':
+      case "pinkRed":
         return gradientBgPinkRed;
     }
 
-    return '';
+    return "";
   });
 </script>
 

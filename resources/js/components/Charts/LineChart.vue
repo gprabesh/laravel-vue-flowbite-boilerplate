@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, watch, computed, onMounted } from 'vue';
+  import { ref, watch, computed, onMounted } from "vue";
   import {
     Chart,
     LineElement,
@@ -8,7 +8,7 @@
     LinearScale,
     CategoryScale,
     Tooltip,
-  } from 'chart.js';
+  } from "chart.js";
 
   const props = defineProps({
     data: {
@@ -32,7 +32,7 @@
 
   onMounted(() => {
     chart = new Chart(root.value, {
-      type: 'line',
+      type: "line",
       data: props.data,
       options: {
         responsive: true,

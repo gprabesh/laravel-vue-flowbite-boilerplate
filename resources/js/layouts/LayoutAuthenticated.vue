@@ -1,19 +1,19 @@
 <script setup>
-  import { mdiForwardburger, mdiBackburger, mdiMenu } from '@mdi/js';
-  import { ref } from 'vue';
-  import { useRouter } from 'vue-router';
-  import menuAside from '@/menuAside.js';
-  import menuNavBar from '@/menuNavBar.js';
-  import { useDarkModeStore } from '@/stores/darkMode.js';
-  import BaseIcon from '@/components/BaseIcon.vue';
-  import FormControl from '@/components/FormControl.vue';
-  import NavBar from '@/components/NavBar.vue';
-  import NavBarItemPlain from '@/components/NavBarItemPlain.vue';
-  import AsideMenu from '@/components/AsideMenu.vue';
-  import FooterBar from '@/components/FooterBar.vue';
-  import { useUserStore } from '@/stores/user';
+  import { mdiForwardburger, mdiBackburger, mdiMenu } from "@mdi/js";
+  import { ref } from "vue";
+  import { useRouter } from "vue-router";
+  import menuAside from "@/menuAside.js";
+  import menuNavBar from "@/menuNavBar.js";
+  import { useDarkModeStore } from "@/stores/darkMode.js";
+  import BaseIcon from "@/components/BaseIcon.vue";
+  import FormControl from "@/components/FormControl.vue";
+  import NavBar from "@/components/NavBar.vue";
+  import NavBarItemPlain from "@/components/NavBarItemPlain.vue";
+  import AsideMenu from "@/components/AsideMenu.vue";
+  import FooterBar from "@/components/FooterBar.vue";
+  import { useUserStore } from "@/stores/user";
 
-  const layoutAsidePadding = 'xl:pl-60';
+  const layoutAsidePadding = "xl:pl-60";
 
   const darkModeStore = useDarkModeStore();
   const userStore = useUserStore();

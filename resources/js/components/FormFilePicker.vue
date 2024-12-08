@@ -1,7 +1,7 @@
 <script setup>
-  import { mdiUpload } from '@mdi/js';
-  import { computed, ref, watch } from 'vue';
-  import BaseButton from '@/components/BaseButton.vue';
+  import { mdiUpload } from "@mdi/js";
+  import { computed, ref, watch } from "vue";
+  import BaseButton from "@/components/BaseButton.vue";
 
   const props = defineProps({
     modelValue: {
@@ -22,12 +22,12 @@
     },
     color: {
       type: String,
-      default: 'info',
+      default: "info",
     },
     isRoundIcon: Boolean,
   });
 
-  const emit = defineEmits(['update:modelValue']);
+  const emit = defineEmits(["update:modelValue"]);
 
   const root = ref(null);
 
@@ -50,7 +50,7 @@
 
     file.value = value[0];
 
-    emit('update:modelValue', file.value);
+    emit("update:modelValue", file.value);
 
     // Use this as an example for handling file uploads
     // let formData = new FormData()

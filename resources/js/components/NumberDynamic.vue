@@ -1,6 +1,6 @@
 <script setup>
-  import { computed, ref, watch, onMounted } from 'vue';
-  import numeral from 'numeral';
+  import { computed, ref, watch, onMounted } from "vue";
+  import numeral from "numeral";
 
   const props = defineProps({
     prefix: {
@@ -26,7 +26,7 @@
   const newValueFormatted = computed(() =>
     newValue.value < 1000
       ? newValue.value
-      : numeral(newValue.value).format('0,0')
+      : numeral(newValue.value).format("0,0")
   );
 
   const value = computed(() => props.value);

@@ -1,13 +1,13 @@
 <script setup>
-  import { mdiChevronUp, mdiChevronDown } from '@mdi/js';
-  import { RouterLink } from 'vue-router';
-  import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
-  import { useMainStore } from '@/stores/main.js';
-  import BaseIcon from '@/components/BaseIcon.vue';
-  import UserAvatarCurrentUser from '@/components/UserAvatarCurrentUser.vue';
-  import NavBarMenuList from '@/components/NavBarMenuList.vue';
-  import BaseDivider from '@/components/BaseDivider.vue';
-  import { useUserStore } from '@/stores/user';
+  import { mdiChevronUp, mdiChevronDown } from "@mdi/js";
+  import { RouterLink } from "vue-router";
+  import { computed, ref, onMounted, onBeforeUnmount } from "vue";
+  import { useMainStore } from "@/stores/main.js";
+  import BaseIcon from "@/components/BaseIcon.vue";
+  import UserAvatarCurrentUser from "@/components/UserAvatarCurrentUser.vue";
+  import NavBarMenuList from "@/components/NavBarMenuList.vue";
+  import BaseDivider from "@/components/BaseDivider.vue";
+  import { useUserStore } from "@/stores/user";
 
   const props = defineProps({
     item: {
@@ -17,18 +17,18 @@
   });
   const userStore = useUserStore();
 
-  const emit = defineEmits(['menu-click']);
+  const emit = defineEmits(["menu-click"]);
 
   const is = computed(() => {
     if (props.item.href) {
-      return 'a';
+      return "a";
     }
 
     if (props.item.to) {
       return RouterLink;
     }
 
-    return 'div';
+    return "div";
   });
 
   const componentClass = computed(() => {
@@ -36,11 +36,11 @@
       isDropdownActive.value
         ? `navbar-item-label-active dark:text-slate-400`
         : `navbar-item-label dark:text-white dark:hover:text-slate-400`,
-      props.item.menu ? 'lg:py-2 lg:px-3' : 'py-2 px-3',
+      props.item.menu ? "lg:py-2 lg:px-3" : "py-2 px-3",
     ];
 
     if (props.item.isDesktopNoLabel) {
-      base.push('lg:w-16', 'lg:justify-center');
+      base.push("lg:w-16", "lg:justify-center");
     }
 
     return base;
@@ -53,7 +53,7 @@
   const isDropdownActive = ref(false);
 
   const menuClick = (event) => {
-    emit('menu-click', event, props.item);
+    emit("menu-click", event, props.item);
 
     if (props.item.menu) {
       isDropdownActive.value = !isDropdownActive.value;
@@ -61,7 +61,7 @@
   };
 
   const menuClickDropdown = (event, item) => {
-    emit('menu-click', event, item);
+    emit("menu-click", event, item);
   };
 
   const root = ref(null);
@@ -74,13 +74,13 @@
 
   onMounted(() => {
     if (props.item.menu) {
-      window.addEventListener('click', forceClose);
+      window.addEventListener("click", forceClose);
     }
   });
 
   onBeforeUnmount(() => {
     if (props.item.menu) {
-      window.removeEventListener('click', forceClose);
+      window.removeEventListener("click", forceClose);
     }
   });
 </script>

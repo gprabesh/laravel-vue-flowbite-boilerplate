@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia';
-import { axios } from '../plugins/axios';
-import router from '../router';
+import { defineStore } from "pinia";
+import { axios } from "../plugins/axios";
+import router from "../router";
 
-export const useUserStore = defineStore('user', {
+export const useUserStore = defineStore("user", {
   state: () => ({
     user: null,
     isAuthenticated: false,
@@ -11,7 +11,7 @@ export const useUserStore = defineStore('user', {
   actions: {
     async fetchUser() {
       try {
-        const response = await axios.get('/me');
+        const response = await axios.get("/me");
         this.user = response.data;
         this.isAuthenticated = true;
       } catch (error) {
@@ -21,13 +21,13 @@ export const useUserStore = defineStore('user', {
     },
     async logout() {
       try {
-        await axios.post('/logout');
+        await axios.post("/logout");
       } catch (error) {
         console.log(error);
       }
       this.user = null;
       this.isAuthenticated = false;
-      router.push('/login');
+      router.push("/login");
     },
   },
 });

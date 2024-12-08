@@ -1,5 +1,5 @@
 <script setup>
-  import { computed } from 'vue';
+  import { computed } from "vue";
 
   const props = defineProps({
     path: {
@@ -8,11 +8,11 @@
     },
     w: {
       type: String,
-      default: 'w-6',
+      default: "w-6",
     },
     h: {
       type: String,
-      default: 'h-6',
+      default: "h-6",
     },
     size: {
       type: [String, Number],

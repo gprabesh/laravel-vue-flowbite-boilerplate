@@ -1,15 +1,15 @@
 <script setup>
-  import { computed } from 'vue';
+  import { computed } from "vue";
   import {
     mdiCashMinus,
     mdiCashPlus,
     mdiReceipt,
     mdiCreditCardOutline,
-  } from '@mdi/js';
-  import CardBox from '@/components/CardBox.vue';
-  import BaseLevel from '@/components/BaseLevel.vue';
-  import PillTag from '@/components/PillTag.vue';
-  import IconRounded from '@/components/IconRounded.vue';
+  } from "@mdi/js";
+  import CardBox from "@/components/CardBox.vue";
+  import BaseLevel from "@/components/BaseLevel.vue";
+  import PillTag from "@/components/PillTag.vue";
+  import IconRounded from "@/components/IconRounded.vue";
 
   const props = defineProps({
     amount: {
@@ -39,26 +39,26 @@
   });
 
   const icon = computed(() => {
-    if (props.type === 'withdrawal') {
+    if (props.type === "withdrawal") {
       return {
         icon: mdiCashMinus,
-        type: 'danger',
+        type: "danger",
       };
-    } else if (props.type === 'deposit') {
+    } else if (props.type === "deposit") {
       return {
         icon: mdiCashPlus,
-        type: 'success',
+        type: "success",
       };
-    } else if (props.type === 'invoice') {
+    } else if (props.type === "invoice") {
       return {
         icon: mdiReceipt,
-        type: 'warning',
+        type: "warning",
       };
     }
 
     return {
       icon: mdiCreditCardOutline,
-      type: 'info',
+      type: "info",
     };
   });
 </script>

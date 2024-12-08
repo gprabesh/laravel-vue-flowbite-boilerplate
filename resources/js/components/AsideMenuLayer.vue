@@ -1,9 +1,9 @@
 <script setup>
-  import { mdiLogout, mdiClose } from '@mdi/js';
-  import { computed } from 'vue';
-  import AsideMenuList from '@/components/AsideMenuList.vue';
-  import AsideMenuItem from '@/components/AsideMenuItem.vue';
-  import BaseIcon from '@/components/BaseIcon.vue';
+  import { mdiLogout, mdiClose } from "@mdi/js";
+  import { computed } from "vue";
+  import AsideMenuList from "@/components/AsideMenuList.vue";
+  import AsideMenuItem from "@/components/AsideMenuItem.vue";
+  import BaseIcon from "@/components/BaseIcon.vue";
 
   defineProps({
     menu: {
@@ -12,21 +12,21 @@
     },
   });
 
-  const emit = defineEmits(['menu-click', 'aside-lg-close-click']);
+  const emit = defineEmits(["menu-click", "aside-lg-close-click"]);
 
   const logoutItem = computed(() => ({
-    label: 'Logout',
+    label: "Logout",
     icon: mdiLogout,
-    color: 'info',
+    color: "info",
     isLogout: true,
   }));
 
   const menuClick = (event, item) => {
-    emit('menu-click', event, item);
+    emit("menu-click", event, item);
   };
 
   const asideLgCloseClick = (event) => {
-    emit('aside-lg-close-click', event);
+    emit("aside-lg-close-click", event);
   };
 </script>
 

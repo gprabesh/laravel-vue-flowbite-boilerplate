@@ -1,5 +1,5 @@
 <script setup>
-  import { colorsBgLight } from '@/colors.js';
+  import { colorsBgLight } from "@/colors.js";
 
   defineProps({
     color: {

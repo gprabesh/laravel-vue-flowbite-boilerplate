@@ -1,11 +1,11 @@
 <script setup>
-  import { computed } from 'vue';
-  import { mdiClose } from '@mdi/js';
-  import BaseButton from '@/components/BaseButton.vue';
-  import BaseButtons from '@/components/BaseButtons.vue';
-  import CardBox from '@/components/CardBox.vue';
-  import OverlayLayer from '@/components/OverlayLayer.vue';
-  import CardBoxComponentTitle from '@/components/CardBoxComponentTitle.vue';
+  import { computed } from "vue";
+  import { mdiClose } from "@mdi/js";
+  import BaseButton from "@/components/BaseButton.vue";
+  import BaseButtons from "@/components/BaseButtons.vue";
+  import CardBox from "@/components/CardBox.vue";
+  import OverlayLayer from "@/components/OverlayLayer.vue";
+  import CardBoxComponentTitle from "@/components/CardBoxComponentTitle.vue";
 
   const props = defineProps({
     title: {
@@ -14,11 +14,11 @@
     },
     button: {
       type: String,
-      default: 'info',
+      default: "info",
     },
     buttonLabel: {
       type: String,
-      default: 'Done',
+      default: "Done",
     },
     hasCancel: Boolean,
     modelValue: {
@@ -27,11 +27,11 @@
     },
   });
 
-  const emit = defineEmits(['update:modelValue', 'cancel', 'confirm']);
+  const emit = defineEmits(["update:modelValue", "cancel", "confirm"]);
 
   const value = computed({
     get: () => props.modelValue,
-    set: (value) => emit('update:modelValue', value),
+    set: (value) => emit("update:modelValue", value),
   });
 
   const confirmCancel = (mode) => {
@@ -39,12 +39,12 @@
     emit(mode);
   };
 
-  const confirm = () => confirmCancel('confirm');
+  const confirm = () => confirmCancel("confirm");
 
-  const cancel = () => confirmCancel('cancel');
+  const cancel = () => confirmCancel("cancel");
 
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && value.value) {
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && value.value) {
       cancel();
     }
   });

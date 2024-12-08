@@ -1,6 +1,6 @@
 <script setup>
-  import { ref, computed } from 'vue';
-  import { useDarkModeStore } from '@/stores/darkMode.js';
+  import { ref, computed } from "vue";
+  import { useDarkModeStore } from "@/stores/darkMode.js";
   import {
     mdiContrastCircle,
     mdiInformation,
@@ -11,22 +11,22 @@
     mdiClose,
     mdiReload,
     mdiTrendingUp,
-  } from '@mdi/js';
-  import SectionMain from '@/components/SectionMain.vue';
-  import CardBox from '@/components/CardBox.vue';
-  import BaseButtons from '@/components/BaseButtons.vue';
-  import BaseButton from '@/components/BaseButton.vue';
-  import NotificationBar from '@/components/NotificationBar.vue';
-  import BaseDivider from '@/components/BaseDivider.vue';
-  import CardBoxModal from '@/components/CardBoxModal.vue';
-  import SectionTitle from '@/components/SectionTitle.vue';
-  import FormField from '@/components/FormField.vue';
-  import FormCheckRadioGroup from '@/components/FormCheckRadioGroup.vue';
-  import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
-  import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue';
-  import CardBoxComponentEmpty from '@/components/CardBoxComponentEmpty.vue';
-  import CardBoxComponentTitle from '@/components/CardBoxComponentTitle.vue';
-  import PillTag from '@/components/PillTag.vue';
+  } from "@mdi/js";
+  import SectionMain from "@/components/SectionMain.vue";
+  import CardBox from "@/components/CardBox.vue";
+  import BaseButtons from "@/components/BaseButtons.vue";
+  import BaseButton from "@/components/BaseButton.vue";
+  import NotificationBar from "@/components/NotificationBar.vue";
+  import BaseDivider from "@/components/BaseDivider.vue";
+  import CardBoxModal from "@/components/CardBoxModal.vue";
+  import SectionTitle from "@/components/SectionTitle.vue";
+  import FormField from "@/components/FormField.vue";
+  import FormCheckRadioGroup from "@/components/FormCheckRadioGroup.vue";
+  import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
+  import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
+  import CardBoxComponentEmpty from "@/components/CardBoxComponentEmpty.vue";
+  import CardBoxComponentTitle from "@/components/CardBoxComponentTitle.vue";
+  import PillTag from "@/components/PillTag.vue";
 
   const modalOneActive = ref(false);
 
@@ -37,39 +37,39 @@
   const notificationSettingsModel = ref([]);
 
   const notificationsOutline = computed(
-    () => notificationSettingsModel.value.indexOf('outline') > -1
+    () => notificationSettingsModel.value.indexOf("outline") > -1
   );
 
   const buttonSettingsModel = ref([]);
 
   const buttonsOutline = computed(
-    () => buttonSettingsModel.value.indexOf('outline') > -1
+    () => buttonSettingsModel.value.indexOf("outline") > -1
   );
 
   const buttonsSmall = computed(
-    () => buttonSettingsModel.value.indexOf('small') > -1
+    () => buttonSettingsModel.value.indexOf("small") > -1
   );
 
   const buttonsDisabled = computed(
-    () => buttonSettingsModel.value.indexOf('disabled') > -1
+    () => buttonSettingsModel.value.indexOf("disabled") > -1
   );
 
   const buttonsRounded = computed(
-    () => buttonSettingsModel.value.indexOf('rounded') > -1
+    () => buttonSettingsModel.value.indexOf("rounded") > -1
   );
 
-  const pillsSettingsModel = ref(['icon']);
+  const pillsSettingsModel = ref(["icon"]);
 
   const pillsOutline = computed(
-    () => pillsSettingsModel.value.indexOf('outline') > -1
+    () => pillsSettingsModel.value.indexOf("outline") > -1
   );
 
   const pillsSmall = computed(
-    () => pillsSettingsModel.value.indexOf('small') > -1
+    () => pillsSettingsModel.value.indexOf("small") > -1
   );
 
   const pillsIcon = computed(() =>
-    pillsSettingsModel.value.indexOf('icon') > -1 ? mdiTrendingUp : null
+    pillsSettingsModel.value.indexOf("icon") > -1 ? mdiTrendingUp : null
   );
 
   const darkModeStore = useDarkModeStore();

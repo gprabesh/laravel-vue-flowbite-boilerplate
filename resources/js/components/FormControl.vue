@@ -1,6 +1,6 @@
 <script setup>
-  import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
-  import FormControlIcon from '@/components/FormControlIcon.vue';
+  import { computed, ref, onMounted, onBeforeUnmount } from "vue";
+  import FormControlIcon from "@/components/FormControlIcon.vue";
 
   const props = defineProps({
     name: {
@@ -37,11 +37,11 @@
     },
     type: {
       type: String,
-      default: 'text',
+      default: "text",
     },
     modelValue: {
       type: [String, Number, Boolean, Array, Object],
-      default: '',
+      default: "",
     },
     required: Boolean,
     borderless: Boolean,
@@ -49,35 +49,35 @@
     ctrlKFocus: Boolean,
   });
 
-  const emit = defineEmits(['update:modelValue', 'setRef']);
+  const emit = defineEmits(["update:modelValue", "setRef"]);
 
   const computedValue = computed({
     get: () => props.modelValue,
     set: (value) => {
-      emit('update:modelValue', value);
+      emit("update:modelValue", value);
     },
   });
 
   const inputElClass = computed(() => {
     const base = [
-      'px-3 py-2 max-w-full focus:ring focus:outline-none border-gray-700 rounded w-full',
-      'dark:placeholder-gray-400',
-      computedType.value === 'textarea' ? 'h-24' : 'h-12',
-      props.borderless ? 'border-0' : 'border',
-      props.transparent ? 'bg-transparent' : 'bg-white dark:bg-slate-800',
+      "px-3 py-2 max-w-full focus:ring focus:outline-none border-gray-700 rounded w-full",
+      "dark:placeholder-gray-400",
+      computedType.value === "textarea" ? "h-24" : "h-12",
+      props.borderless ? "border-0" : "border",
+      props.transparent ? "bg-transparent" : "bg-white dark:bg-slate-800",
     ];
 
     if (props.icon) {
-      base.push('pl-10');
+      base.push("pl-10");
     }
 
     return base;
   });
 
-  const computedType = computed(() => (props.options ? 'select' : props.type));
+  const computedType = computed(() => (props.options ? "select" : props.type));
 
   const controlIconH = computed(() =>
-    props.type === 'textarea' ? 'h-full' : 'h-12'
+    props.type === "textarea" ? "h-full" : "h-12"
   );
 
   const selectEl = ref(null);
@@ -88,20 +88,20 @@
 
   onMounted(() => {
     if (selectEl.value) {
-      emit('setRef', selectEl.value);
+      emit("setRef", selectEl.value);
     } else if (textareaEl.value) {
-      emit('setRef', textareaEl.value);
+      emit("setRef", textareaEl.value);
     } else {
-      emit('setRef', inputEl.value);
+      emit("setRef", inputEl.value);
     }
   });
 
   if (props.ctrlKFocus) {
     const fieldFocusHook = (e) => {
-      if (e.ctrlKey && e.key === 'k') {
+      if (e.ctrlKey && e.key === "k") {
         e.preventDefault();
         inputEl.value.focus();
-      } else if (e.key === 'Escape') {
+      } else if (e.key === "Escape") {
         inputEl.value.blur();
       }
     };

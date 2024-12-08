@@ -2,7 +2,7 @@
   defineProps({
     display: {
       type: String,
-      default: 'flex',
+      default: "flex",
     },
     useMargin: Boolean,
   });

@@ -1,74 +1,74 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@/views/HomeView.vue';
-import { useUserStore } from '@/stores/user';
+import { createRouter, createWebHistory } from "vue-router";
+import Home from "@/views/HomeView.vue";
+import { useUserStore } from "@/stores/user";
 
 const routes = [
   {
     meta: {
-      title: 'Dashboard',
+      title: "Dashboard",
       requiresAuth: true,
     },
-    path: '/',
-    name: 'dashboard',
+    path: "/",
+    name: "dashboard",
     component: Home,
   },
   {
     meta: {
-      title: 'Tables',
+      title: "Tables",
     },
-    path: '/tables',
-    name: 'tables',
-    component: () => import('@/views/TablesView.vue'),
+    path: "/tables",
+    name: "tables",
+    component: () => import("@/views/TablesView.vue"),
   },
   {
     meta: {
-      title: 'Forms',
+      title: "Forms",
       requiresAuth: true,
     },
-    path: '/forms',
-    name: 'forms',
-    component: () => import('@/views/FormsView.vue'),
+    path: "/forms",
+    name: "forms",
+    component: () => import("@/views/FormsView.vue"),
   },
   {
     meta: {
-      title: 'Profile',
+      title: "Profile",
       requiresAuth: true,
     },
-    path: '/profile',
-    name: 'profile',
-    component: () => import('@/views/ProfileView.vue'),
+    path: "/profile",
+    name: "profile",
+    component: () => import("@/views/ProfileView.vue"),
   },
   {
     meta: {
-      title: 'Ui',
+      title: "Ui",
     },
-    path: '/ui',
-    name: 'ui',
-    component: () => import('@/views/UiView.vue'),
+    path: "/ui",
+    name: "ui",
+    component: () => import("@/views/UiView.vue"),
   },
   {
     meta: {
-      title: 'Responsive layout',
+      title: "Responsive layout",
     },
-    path: '/responsive',
-    name: 'responsive',
-    component: () => import('@/views/ResponsiveView.vue'),
+    path: "/responsive",
+    name: "responsive",
+    component: () => import("@/views/ResponsiveView.vue"),
   },
   {
     meta: {
-      title: 'Login',
+      title: "Login",
     },
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/LoginView.vue'),
+    path: "/login",
+    name: "login",
+    component: () => import("@/views/LoginView.vue"),
   },
   {
     meta: {
-      title: 'Error',
+      title: "Error",
     },
-    path: '/error',
-    name: 'error',
-    component: () => import('@/views/ErrorView.vue'),
+    path: "/error",
+    name: "error",
+    component: () => import("@/views/ErrorView.vue"),
   },
 ];
 
@@ -88,8 +88,8 @@ router.beforeEach(async (to, from, next) => {
     to.matched.some((record) => record.meta.requiresAuth) &&
     !userStore.isAuthenticated
   ) {
-    console.log('redirecting');
-    next('/login');
+    console.log("redirecting");
+    next("/login");
   } else {
     next();
   }

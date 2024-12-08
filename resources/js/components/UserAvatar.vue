@@ -1,5 +1,5 @@
 <script setup>
-  import { computed } from 'vue';
+  import { computed } from "vue";
 
   const props = defineProps({
     username: {
@@ -12,7 +12,7 @@
     },
     api: {
       type: String,
-      default: 'avataaars',
+      default: "avataaars",
     },
   });
 
@@ -21,7 +21,7 @@
       props.avatar ??
       `https://api.dicebear.com/7.x/${props.api}/svg?seed=${props.username.replace(
         /[^a-z0-9]+/gi,
-        '-'
+        "-"
       )}.svg`
   );
 

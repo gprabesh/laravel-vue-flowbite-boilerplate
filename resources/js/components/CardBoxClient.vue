@@ -1,10 +1,10 @@
 <script setup>
-  import { computed } from 'vue';
-  import { mdiTrendingDown, mdiTrendingUp, mdiTrendingNeutral } from '@mdi/js';
-  import CardBox from '@/components/CardBox.vue';
-  import BaseLevel from '@/components/BaseLevel.vue';
-  import PillTag from '@/components/PillTag.vue';
-  import UserAvatar from '@/components/UserAvatar.vue';
+  import { computed } from "vue";
+  import { mdiTrendingDown, mdiTrendingUp, mdiTrendingNeutral } from "@mdi/js";
+  import CardBox from "@/components/CardBox.vue";
+  import BaseLevel from "@/components/BaseLevel.vue";
+  import PillTag from "@/components/PillTag.vue";
+  import UserAvatar from "@/components/UserAvatar.vue";
 
   const props = defineProps({
     name: {
@@ -40,16 +40,16 @@
 
     if (props.progress) {
       if (props.progress >= 60) {
-        return 'success';
+        return "success";
       }
       if (props.progress >= 40) {
-        return 'warning';
+        return "warning";
       }
 
-      return 'danger';
+      return "danger";
     }
 
-    return 'info';
+    return "info";
   });
 
   const pillIcon = computed(() => {

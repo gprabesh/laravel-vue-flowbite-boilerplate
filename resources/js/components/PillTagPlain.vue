@@ -1,17 +1,17 @@
 <script setup>
-import BaseIcon from '@/components/BaseIcon.vue'
+  import BaseIcon from '@/components/BaseIcon.vue';
 
-defineProps({
-  label: {
-    type: String,
-    required: true
-  },
-  icon: {
-    type: String,
-    default: null
-  },
-  small: Boolean
-})
+  defineProps({
+    label: {
+      type: String,
+      required: true,
+    },
+    icon: {
+      type: String,
+      default: null,
+    },
+    small: Boolean,
+  });
 </script>
 
 <template>

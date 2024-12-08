@@ -1,9 +1,9 @@
 <script setup>
-defineProps({
-  custom: Boolean,
-  first: Boolean,
-  last: Boolean
-})
+  defineProps({
+    custom: Boolean,
+    first: Boolean,
+    last: Boolean,
+  });
 </script>
 
 <template>

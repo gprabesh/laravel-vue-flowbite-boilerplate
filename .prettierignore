@@ -1,0 +1,9 @@
+/node_modules
+/public
+/vendor
+package.json
+package-lock.json
+composer.json
+composer.lock
+*.config.js
+*.md

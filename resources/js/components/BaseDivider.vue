@@ -1,7 +1,7 @@
 <script setup>
-const props = defineProps({
-  navBar: Boolean
-})
+  const props = defineProps({
+    navBar: Boolean,
+  });
 </script>
 
 <template>

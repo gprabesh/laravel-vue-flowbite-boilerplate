@@ -1,85 +1,85 @@
 <script setup>
-import { mdiUpload } from '@mdi/js'
-import { computed, ref, watch } from 'vue'
-import BaseButton from '@/components/BaseButton.vue'
+  import { mdiUpload } from '@mdi/js';
+  import { computed, ref, watch } from 'vue';
+  import BaseButton from '@/components/BaseButton.vue';
 
-const props = defineProps({
-  modelValue: {
-    type: [Object, File, Array],
-    default: null
-  },
-  label: {
-    type: String,
-    default: null
-  },
-  icon: {
-    type: String,
-    default: mdiUpload
-  },
-  accept: {
-    type: String,
-    default: null
-  },
-  color: {
-    type: String,
-    default: 'info'
-  },
-  isRoundIcon: Boolean
-})
+  const props = defineProps({
+    modelValue: {
+      type: [Object, File, Array],
+      default: null,
+    },
+    label: {
+      type: String,
+      default: null,
+    },
+    icon: {
+      type: String,
+      default: mdiUpload,
+    },
+    accept: {
+      type: String,
+      default: null,
+    },
+    color: {
+      type: String,
+      default: 'info',
+    },
+    isRoundIcon: Boolean,
+  });
 
-const emit = defineEmits(['update:modelValue'])
+  const emit = defineEmits(['update:modelValue']);
 
-const root = ref(null)
+  const root = ref(null);
 
-const file = ref(props.modelValue)
+  const file = ref(props.modelValue);
 
-const showFilename = computed(() => !props.isRoundIcon && file.value)
+  const showFilename = computed(() => !props.isRoundIcon && file.value);
 
-const modelValueProp = computed(() => props.modelValue)
+  const modelValueProp = computed(() => props.modelValue);
 
-watch(modelValueProp, (value) => {
-  file.value = value
+  watch(modelValueProp, (value) => {
+    file.value = value;
 
-  if (!value) {
-    root.value.input.value = null
-  }
-})
+    if (!value) {
+      root.value.input.value = null;
+    }
+  });
 
-const upload = (event) => {
-  const value = event.target.files || event.dataTransfer.files
+  const upload = (event) => {
+    const value = event.target.files || event.dataTransfer.files;
 
-  file.value = value[0]
+    file.value = value[0];
 
-  emit('update:modelValue', file.value)
+    emit('update:modelValue', file.value);
 
-  // Use this as an example for handling file uploads
-  // let formData = new FormData()
-  // formData.append('file', file.value)
+    // Use this as an example for handling file uploads
+    // let formData = new FormData()
+    // formData.append('file', file.value)
 
-  // const mediaStoreRoute = `/your-route/`
+    // const mediaStoreRoute = `/your-route/`
 
-  // axios
-  //   .post(mediaStoreRoute, formData, {
-  //     headers: {
-  //       'Content-Type': 'multipart/form-data'
-  //     },
-  //     onUploadProgress: progressEvent
-  //   })
-  //   .then(r => {
+    // axios
+    //   .post(mediaStoreRoute, formData, {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data'
+    //     },
+    //     onUploadProgress: progressEvent
+    //   })
+    //   .then(r => {
+    //
+    //   })
+    //   .catch(err => {
+    //
+    //   })
+  };
+
+  // const uploadPercent = ref(0)
   //
-  //   })
-  //   .catch(err => {
-  //
-  //   })
-}
-
-// const uploadPercent = ref(0)
-//
-// const progressEvent = progressEvent => {
-//   uploadPercent.value = Math.round(
-//     (progressEvent.loaded * 100) / progressEvent.total
-//   )
-// }
+  // const progressEvent = progressEvent => {
+  //   uploadPercent.value = Math.round(
+  //     (progressEvent.loaded * 100) / progressEvent.total
+  //   )
+  // }
 </script>
 
 <template>

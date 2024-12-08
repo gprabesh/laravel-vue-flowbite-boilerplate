@@ -1,11 +1,11 @@
 <script setup>
-defineProps({
-  display: {
-    type: String,
-    default: 'flex'
-  },
-  useMargin: Boolean
-})
+  defineProps({
+    display: {
+      type: String,
+      default: 'flex',
+    },
+    useMargin: Boolean,
+  });
 </script>
 
 <template>

@@ -10,55 +10,55 @@ import {
   mdiTelevisionGuide,
   mdiResponsive,
   mdiPalette,
-  mdiReact
-} from '@mdi/js'
+  mdiReact,
+} from '@mdi/js';
 
 export default [
   {
     to: '/',
     icon: mdiMonitor,
-    label: 'Dashboard'
+    label: 'Dashboard',
   },
   {
     to: '/tables',
     label: 'Tables',
-    icon: mdiTable
+    icon: mdiTable,
   },
   {
     to: '/forms',
     label: 'Forms',
-    icon: mdiSquareEditOutline
+    icon: mdiSquareEditOutline,
   },
   {
     to: '/ui',
     label: 'UI',
-    icon: mdiTelevisionGuide
+    icon: mdiTelevisionGuide,
   },
   {
     to: '/responsive',
     label: 'Responsive',
-    icon: mdiResponsive
+    icon: mdiResponsive,
   },
   {
     to: '/profile',
     label: 'Profile',
-    icon: mdiAccountCircle
+    icon: mdiAccountCircle,
   },
   {
     to: '/error',
     label: 'Error',
-    icon: mdiAlertCircle
+    icon: mdiAlertCircle,
   },
   {
     label: 'Dropdown',
     icon: mdiViewList,
     menu: [
       {
-        label: 'Item One'
+        label: 'Item One',
       },
       {
-        label: 'Item Two'
-      }
-    ]
+        label: 'Item Two',
+      },
+    ],
   },
-]
+];

@@ -1,20 +1,20 @@
 <script setup>
-defineProps({
-  zIndex: {
-    type: String,
-    default: 'z-50'
-  },
-  type: {
-    type: String,
-    default: 'flex'
-  }
-})
+  defineProps({
+    zIndex: {
+      type: String,
+      default: 'z-50',
+    },
+    type: {
+      type: String,
+      default: 'flex',
+    },
+  });
 
-const emit = defineEmits(['overlay-click'])
+  const emit = defineEmits(['overlay-click']);
 
-const overlayClick = (event) => {
-  emit('overlay-click', event)
-}
+  const overlayClick = (event) => {
+    emit('overlay-click', event);
+  };
 </script>
 
 <template>

@@ -8,7 +8,7 @@ const routes = [
       title: "Dashboard",
       requiresAuth: true,
     },
-    path: "/",
+    path: "/dashboard",
     name: "dashboard",
     component: Home,
   },

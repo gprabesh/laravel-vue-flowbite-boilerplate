@@ -9,7 +9,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
 
-    @vite(['resources/js/main.js'])
+    @vite(['resources/js/main.js','resources/css/main.css'])
 </head>
 
 <body class="font-sans antialiased">

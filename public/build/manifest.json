@@ -1,49 +1,56 @@
 {
-  "_CardBoxComponentEmpty-CZsMAIFp.js": {
-    "file": "assets/CardBoxComponentEmpty-CZsMAIFp.js",
+  "_CardBoxComponentEmpty.js": {
+    "file": "assets/CardBoxComponentEmpty.js",
     "name": "CardBoxComponentEmpty",
     "imports": [
       "resources/js/main.js"
     ]
   },
-  "_FormCheckRadioGroup-CKB4Qsf4.js": {
-    "file": "assets/FormCheckRadioGroup-CKB4Qsf4.js",
+  "_FormCheckRadioGroup.js": {
+    "file": "assets/FormCheckRadioGroup.js",
     "name": "FormCheckRadioGroup",
     "imports": [
-      "_FormField-CYB-ksh_.js",
+      "_FormField.js",
       "resources/js/main.js"
     ]
   },
-  "_FormField-CYB-ksh_.js": {
-    "file": "assets/FormField-CYB-ksh_.js",
+  "_FormField.js": {
+    "file": "assets/FormField.js",
     "name": "FormField",
     "imports": [
       "resources/js/main.js"
     ]
   },
-  "_FormFilePicker-EXopDD2l.js": {
-    "file": "assets/FormFilePicker-EXopDD2l.js",
+  "_FormFilePicker.js": {
+    "file": "assets/FormFilePicker.js",
     "name": "FormFilePicker",
     "imports": [
       "resources/js/main.js"
     ]
   },
-  "_LayoutGuest-C8q_LwBj.js": {
-    "file": "assets/LayoutGuest-C8q_LwBj.js",
+  "_LayoutGuest.js": {
+    "file": "assets/LayoutGuest.js",
     "name": "LayoutGuest",
     "imports": [
       "resources/js/main.js"
     ]
   },
-  "_SectionTitle-DPlHsXrY.js": {
-    "file": "assets/SectionTitle-DPlHsXrY.js",
+  "_SectionMain.js": {
+    "file": "assets/SectionMain.js",
+    "name": "SectionMain",
+    "imports": [
+      "resources/js/main.js"
+    ]
+  },
+  "_SectionTitle.js": {
+    "file": "assets/SectionTitle.js",
     "name": "SectionTitle",
     "imports": [
       "resources/js/main.js"
     ]
   },
   "resources/js/main.js": {
-    "file": "assets/main-CSHGpLCA.js",
+    "file": "assets/main.js",
     "name": "main",
     "src": "resources/js/main.js",
     "isEntry": true,
@@ -57,85 +64,90 @@
       "resources/js/views/ErrorView.vue"
     ],
     "css": [
-      "assets/main-RZYQTcuf.css"
+      "assets/main.css"
     ]
   },
   "resources/js/views/ErrorView.vue": {
-    "file": "assets/ErrorView-BpNRoywc.js",
+    "file": "assets/ErrorView.js",
     "name": "ErrorView",
     "src": "resources/js/views/ErrorView.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_LayoutGuest-C8q_LwBj.js",
+      "_LayoutGuest.js",
       "resources/js/main.js"
     ]
   },
   "resources/js/views/FormsView.vue": {
-    "file": "assets/FormsView-CJOCHE5-.js",
+    "file": "assets/FormsView.js",
     "name": "FormsView",
     "src": "resources/js/views/FormsView.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/main.js",
-      "_FormCheckRadioGroup-CKB4Qsf4.js",
-      "_FormFilePicker-EXopDD2l.js",
-      "_FormField-CYB-ksh_.js",
-      "_SectionTitle-DPlHsXrY.js"
+      "_SectionMain.js",
+      "_FormCheckRadioGroup.js",
+      "_FormFilePicker.js",
+      "_FormField.js",
+      "_SectionTitle.js"
     ]
   },
   "resources/js/views/LoginView.vue": {
-    "file": "assets/LoginView-CJG4XWY0.js",
+    "file": "assets/LoginView.js",
     "name": "LoginView",
     "src": "resources/js/views/LoginView.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/main.js",
-      "_LayoutGuest-C8q_LwBj.js",
-      "_FormField-CYB-ksh_.js"
+      "_LayoutGuest.js",
+      "_FormField.js"
     ]
   },
   "resources/js/views/ProfileView.vue": {
-    "file": "assets/ProfileView-_3m9m0gD.js",
+    "file": "assets/ProfileView.js",
     "name": "ProfileView",
     "src": "resources/js/views/ProfileView.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/main.js",
-      "_FormField-CYB-ksh_.js",
-      "_FormFilePicker-EXopDD2l.js"
+      "_SectionMain.js",
+      "_FormField.js",
+      "_FormFilePicker.js"
     ]
   },
   "resources/js/views/ResponsiveView.vue": {
-    "file": "assets/ResponsiveView-C7Q6V7oN.js",
+    "file": "assets/ResponsiveView.js",
     "name": "ResponsiveView",
     "src": "resources/js/views/ResponsiveView.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_SectionTitle-DPlHsXrY.js",
+      "_SectionTitle.js",
+      "_SectionMain.js",
       "resources/js/main.js"
     ]
   },
   "resources/js/views/TablesView.vue": {
-    "file": "assets/TablesView-C7CJCZy1.js",
+    "file": "assets/TablesView.js",
     "name": "TablesView",
     "src": "resources/js/views/TablesView.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/main.js",
-      "_CardBoxComponentEmpty-CZsMAIFp.js"
+      "_SectionMain.js",
+      "_CardBoxComponentEmpty.js"
     ]
   },
   "resources/js/views/UiView.vue": {
-    "file": "assets/UiView-B7RC94Gq.js",
+    "file": "assets/UiView.js",
     "name": "UiView",
     "src": "resources/js/views/UiView.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/main.js",
-      "_SectionTitle-DPlHsXrY.js",
-      "_FormField-CYB-ksh_.js",
-      "_FormCheckRadioGroup-CKB4Qsf4.js",
-      "_CardBoxComponentEmpty-CZsMAIFp.js"
+      "_SectionMain.js",
+      "_SectionTitle.js",
+      "_FormField.js",
+      "_FormCheckRadioGroup.js",
+      "_CardBoxComponentEmpty.js"
     ]
   }
 }

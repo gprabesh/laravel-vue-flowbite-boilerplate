@@ -11,6 +11,8 @@ import {
   mdiResponsive,
   mdiPalette,
   mdiReact,
+  mdiCogBox,
+  mdiNewspaperVariantMultiple,
 } from "@mdi/js";
 
 export default [
@@ -18,6 +20,11 @@ export default [
     to: "/dashboard",
     icon: mdiMonitor,
     label: "Dashboard",
+  },
+  {
+    to: "/journal-voucher",
+    icon: mdiNewspaperVariantMultiple,
+    label: "Journal Voucher",
   },
   {
     to: "/tables",
@@ -50,14 +57,11 @@ export default [
     icon: mdiAlertCircle,
   },
   {
-    label: "Dropdown",
-    icon: mdiViewList,
+    label: "Setup",
+    icon: mdiCogBox,
     menu: [
       {
-        label: "Item One",
-      },
-      {
-        label: "Item Two",
+        label: "Company",
       },
     ],
   },

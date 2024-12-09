@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/HomeView.vue";
+import JournalVoucher from "@/pages/JournalVoucher.vue";
 import { useUserStore } from "@/stores/user";
 
 const routes = [
@@ -12,6 +13,16 @@ const routes = [
     name: "dashboard",
     component: Home,
   },
+  {
+    meta: {
+      title: "Journal Voucher",
+      requiresAuth: true,
+    },
+    path: "/journal-voucher",
+    name: "journal-voucher",
+    component: JournalVoucher,
+  },
+
   {
     meta: {
       title: "Tables",

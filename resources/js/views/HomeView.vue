@@ -26,10 +26,13 @@
   import { FwbDropdown, FwbListGroup, FwbListGroupItem } from "flowbite-vue";
 
   const mainStore = useMainStore();
+  const onSearch = () => {
+    console.log("Search performed");
+  };
 </script>
 
 <template>
-  <LayoutAuthenticated>
+  <SectionMain>
     <SectionTitleLineWithButton
       :icon="mdiChartTimelineVariant"
       title="Overview"
@@ -99,5 +102,5 @@
     <CardBox has-table>
       <TableSampleClients />
     </CardBox>
-  </LayoutAuthenticated>
+  </SectionMain>
 </template>

@@ -1,6 +1,5 @@
 <script setup>
   import { ref, onMounted } from "vue";
-  import { useMainStore } from "@/stores/main";
   import { mdiNewspaperVariantMultiple, mdiPlusCircle } from "@mdi/js";
   import SectionMain from "@/components/SectionMain.vue";
   import CardBox from "@/components/CardBox.vue";
@@ -9,8 +8,7 @@
   import { TabulatorFull as Tabulator } from "tabulator-tables";
   import VoucherEntry from "@/components/VoucherEntry.vue";
 
-  const mainStore = useMainStore();
-  const isShowModal = ref(true);
+  const isShowModal = ref(false);
 
   function closeModal() {
     isShowModal.value = false;
@@ -48,10 +46,9 @@
       dob: "04/11/1982",
     },
   ]);
-  let tabulator = ref(null);
+  const tabulator = ref(null);
   onMounted(() => {
-    console.log(tabledata.value);
-    tabulator = new Tabulator("#tabulator", {
+    tabulator.value = new Tabulator("#tabulator", {
       data: tabledata.value,
       autoColumns: true,
     });

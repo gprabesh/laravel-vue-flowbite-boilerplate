@@ -10,3 +10,4 @@
 @import "styles/_basic.css";
 @import "styles/_white.css";
 @import "../../node_modules/tabulator-tables/dist/css/tabulator.min.css";
+@import "../../node_modules/vue-multiselect/dist/vue-multiselect.min.css";

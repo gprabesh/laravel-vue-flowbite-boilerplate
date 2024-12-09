@@ -1,6 +1,7 @@
 <script setup name="VoucherEntry">
   import { FwbModal, FwbButton } from "flowbite-vue";
   import { ref, onMounted } from "vue";
+  import { Multiselect } from "vue-multiselect";
   const props = defineProps({
     isShowModal: {
       type: Boolean,
@@ -17,12 +18,48 @@
     },
   });
   const accounts = ref([]);
-  onMounted(async () => {
-    accounts.value = await fetchAccounts();
+  const formData = ref({
+    transactionDate: new Date().toISOString().split("T")[0],
+    transactions: [
+      {
+        account: null,
+        debit: 0,
+        credit: 0,
+      },
+      {
+        account: null,
+        debit: 0,
+        credit: 0,
+      },
+    ],
+    description: "",
   });
-  const fetchAccounts = async () => {
-    return axios.get("/accounts");
+  const addTransaction = () => {
+    formData.value.transactions.push({
+      account: null,
+      debit: 0,
+      credit: 0,
+    });
   };
+
+  const removeTransaction = (index) => {
+    formData.value.transactions.splice(index, 1);
+  };
+
+  const submitForm = () => {
+    console.log("Form data:", formData.value);
+  };
+  const fetchAccounts = async () => {
+    try {
+      const response = await axios.get("/accounts");
+      accounts.value = response.data.accounts;
+    } catch (error) {
+      console.error("Error fetching accounts:", error);
+    }
+  };
+  onMounted(() => {
+    fetchAccounts();
+  });
 </script>
 
 <template>
@@ -36,18 +73,66 @@
       <div class="flex items-center text-lg">Journal Entry</div>
     </template>
     <template #body>
-      <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-        With less than a month to go before the European Union enacts new
-        consumer privacy laws for its citizens, companies around the world are
-        updating their terms of service agreements to comply.
-      </p>
-      <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-        The European Union’s General Data Protection Regulation (G.D.P.R.) goes
-        into effect on May 25 and is meant to ensure a common set of data rights
-        in the European Union. It requires organizations to notify users as soon
-        as possible of high-risk data breaches that could personally affect
-        them.
-      </p>
+      <form @submit.prevent="submitForm">
+        <div>
+          <label for="date">Date</label>
+          <input type="date" v-model="formData.transactionDate" />
+        </div>
+        <div
+          v-for="(transaction, index) in formData.transactions"
+          :key="index"
+          class="transaction-item"
+        >
+          <div>
+            <label for="account">Account</label>
+            <Multiselect
+              v-model="transaction.account"
+              :options="accounts"
+              label="name"
+              track-by="id"
+              placeholder="Select account"
+              :close-on-select="true"
+            />
+          </div>
+
+          <div>
+            <label for="debit">Debit</label>
+            <input
+              type="number"
+              v-model="transaction.debit"
+              placeholder="Debit Amount"
+            />
+          </div>
+
+          <div>
+            <label for="credit">Credit</label>
+            <input
+              type="number"
+              v-model="transaction.credit"
+              placeholder="Credit Amount"
+            />
+          </div>
+
+          <button
+            @click.prevent="removeTransaction(index)"
+            v-if="formData.transactions.length > 2"
+          >
+            Remove
+          </button>
+        </div>
+
+        <button @click.prevent="addTransaction">Add Transaction</button>
+
+        <div>
+          <label for="description">Description</label>
+          <textarea
+            v-model="formData.description"
+            placeholder="Enter description"
+          ></textarea>
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
     </template>
     <template #footer>
       <div class="flex justify-between">

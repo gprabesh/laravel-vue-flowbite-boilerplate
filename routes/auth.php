@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AccountController;
+use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Middleware\AccountBookInterceptor;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('api')->group(function () {
@@ -39,9 +41,7 @@ Route::prefix('api')->group(function () {
     });
 
     Route::middleware('auth')->group(function () {
-        Route::get('me', function () {
-            return auth()->user();
-        });
+        Route::get('me', [AuthenticatedSessionController::class, 'me']);
         Route::get('verify-email', EmailVerificationPromptController::class)
             ->name('verification.notice');
 
@@ -63,6 +63,9 @@ Route::prefix('api')->group(function () {
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
             ->name('logout');
 
-        Route::resource('accounts', AccountController::class);
+        Route::middleware(AccountBookInterceptor::class)->group(function () {
+            Route::resource('accounts', AccountController::class);
+            Route::resource('transactions', TransactionController::class);
+        });
     });
 });

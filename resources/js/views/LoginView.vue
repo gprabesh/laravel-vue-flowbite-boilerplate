@@ -26,7 +26,13 @@
     try {
       await axios.post("/login", form);
       await userStore.fetchUser();
-      router.push("/dashboard");
+      router.push({
+        name: "dashboard",
+        query: {
+          account_book_id: userStore.user.account_book_id,
+          company_id: userStore.user.company_id,
+        },
+      });
     } catch (error) {
       console.log(error);
       Swal.fire("Failed to login. Something went wrong");

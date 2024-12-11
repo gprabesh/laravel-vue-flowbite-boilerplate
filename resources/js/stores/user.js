@@ -12,7 +12,7 @@ export const useUserStore = defineStore("user", {
     async fetchUser() {
       try {
         const response = await axios.get("/me");
-        this.user = response.data;
+        this.user = response.data.user;
         this.isAuthenticated = true;
       } catch (error) {
         this.user = null;

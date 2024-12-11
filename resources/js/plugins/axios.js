@@ -32,6 +32,12 @@ axios.interceptors.request.use(async (config) => {
   if (csrfToken) {
     config.headers["X-XSRF-TOKEN"] = csrfToken[1];
   }
+  const userStore = useUserStore();
+  const customParams = {
+    account_book_id: userStore?.user?.account_book_id || null,
+    company_id: userStore?.user?.company_id || null,
+  };
+  config.params = { ...config.params, ...customParams };
   return config;
 });
 axios.interceptors.response.use(

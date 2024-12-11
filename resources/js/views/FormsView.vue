@@ -48,20 +48,14 @@
   const formStatusOptions = ["info", "success", "danger", "warning"];
 
   const formStatusSubmit = () => {
-    formStatusCurrent.value = formStatusOptions[formStatusCurrent.value + 1]
-      ? formStatusCurrent.value + 1
-      : 0;
+    formStatusCurrent.value = formStatusOptions[formStatusCurrent.value + 1] ? formStatusCurrent.value + 1 : 0;
   };
 </script>
 
 <template>
   <LayoutAuthenticated>
     <SectionMain>
-      <SectionTitleLineWithButton
-        :icon="mdiBallotOutline"
-        title="Forms example"
-        main
-      >
+      <SectionTitleLineWithButton :icon="mdiBallotOutline" title="Forms example" main>
         <BaseButton
           href="https://github.com/justboil/admin-one-vue-tailwind"
           target="_blank"
@@ -79,11 +73,7 @@
         </FormField>
 
         <FormField label="With help line" help="Do not enter the leading zero">
-          <FormControl
-            v-model="form.phone"
-            type="tel"
-            placeholder="Your phone number"
-          />
+          <FormControl v-model="form.phone" type="tel" placeholder="Your phone number" />
         </FormField>
 
         <FormField label="Dropdown">
@@ -93,10 +83,7 @@
         <BaseDivider />
 
         <FormField label="Question" help="Your question. Max 255 characters">
-          <FormControl
-            type="textarea"
-            placeholder="Explain how we can help you"
-          />
+          <FormControl type="textarea" placeholder="Explain how we can help you" />
         </FormField>
 
         <template #footer>
@@ -160,19 +147,11 @@
           :is-placed-with-header="formStatusWithHeader"
         >
           <span
-            ><b class="capitalize">{{
-              formStatusOptions[formStatusCurrent]
-            }}</b>
-            state</span
+            ><b class="capitalize">{{ formStatusOptions[formStatusCurrent] }}</b> state</span
           >
         </NotificationBarInCard>
         <FormField label="Fields">
-          <FormControl
-            v-model="form.name"
-            :icon-left="mdiAccount"
-            help="Your full name"
-            placeholder="Name"
-          />
+          <FormControl v-model="form.name" :icon-left="mdiAccount" help="Your full name" placeholder="Name" />
         </FormField>
 
         <template #footer>

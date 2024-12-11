@@ -8,14 +8,9 @@ export const useDarkModeStore = defineStore("darkMode", () => {
     isEnabled.value = payload !== null ? payload : !isEnabled.value;
 
     if (typeof document !== "undefined") {
-      document.body.classList[isEnabled.value ? "add" : "remove"](
-        "dark-scrollbars"
-      );
+      document.body.classList[isEnabled.value ? "add" : "remove"]("dark-scrollbars");
 
-      document.documentElement.classList[isEnabled.value ? "add" : "remove"](
-        "dark",
-        "dark-scrollbars-compat"
-      );
+      document.documentElement.classList[isEnabled.value ? "add" : "remove"]("dark", "dark-scrollbars-compat");
     }
 
     // You can persist dark mode setting

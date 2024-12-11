@@ -47,13 +47,7 @@
   <CardBox>
     <BaseLevel v-if="trend" class="mb-3" mobile>
       <PillTagTrend :trend="trend" :trend-type="trendType" small />
-      <BaseButton
-        :icon="mdiCog"
-        icon-w="w-4"
-        icon-h="h-4"
-        color="lightDark"
-        small
-      />
+      <BaseButton :icon="mdiCog" icon-w="w-4" icon-h="h-4" color="lightDark" small />
     </BaseLevel>
     <BaseLevel mobile>
       <div>
@@ -64,14 +58,7 @@
           <NumberDynamic :value="number" :prefix="prefix" :suffix="suffix" />
         </h1>
       </div>
-      <BaseIcon
-        v-if="icon"
-        :path="icon"
-        size="48"
-        w=""
-        h="h-16"
-        :class="color"
-      />
+      <BaseIcon v-if="icon" :path="icon" size="48" w="" h="h-16" :class="color" />
     </BaseLevel>
   </CardBox>
 </template>

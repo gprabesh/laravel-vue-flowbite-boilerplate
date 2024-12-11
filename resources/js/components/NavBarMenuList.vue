@@ -16,10 +16,5 @@
 </script>
 
 <template>
-  <NavBarItem
-    v-for="(item, index) in menu"
-    :key="index"
-    :item="item"
-    @menu-click="menuClick"
-  />
+  <NavBarItem v-for="(item, index) in menu" :key="index" :item="item" @menu-click="menuClick" />
 </template>

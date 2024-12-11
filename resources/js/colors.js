@@ -33,12 +33,7 @@ export const colorsOutline = {
   info: [colorsText.info, "border-blue-500"],
 };
 
-export const getButtonColor = (
-  color,
-  isOutlined,
-  hasHover,
-  isActive = false
-) => {
+export const getButtonColor = (color, isOutlined, hasHover, isActive = false) => {
   const colors = {
     ring: {
       white: "ring-gray-200 dark:ring-gray-500",
@@ -75,12 +70,9 @@ export const getButtonColor = (
       whiteDark: "hover:bg-gray-100 hover:dark:bg-slate-800",
       lightDark: "hover:bg-gray-200 hover:dark:bg-slate-700",
       contrast: "hover:bg-gray-700 hover:dark:bg-slate-100",
-      success:
-        "hover:bg-emerald-700 hover:border-emerald-700 hover:dark:bg-emerald-600 hover:dark:border-emerald-600",
-      danger:
-        "hover:bg-red-700 hover:border-red-700 hover:dark:bg-red-600 hover:dark:border-red-600",
-      warning:
-        "hover:bg-yellow-700 hover:border-yellow-700 hover:dark:bg-yellow-600 hover:dark:border-yellow-600",
+      success: "hover:bg-emerald-700 hover:border-emerald-700 hover:dark:bg-emerald-600 hover:dark:border-emerald-600",
+      danger: "hover:bg-red-700 hover:border-red-700 hover:dark:bg-red-600 hover:dark:border-red-600",
+      warning: "hover:bg-yellow-700 hover:border-yellow-700 hover:dark:bg-yellow-600 hover:dark:border-yellow-600",
       info: "hover:bg-blue-700 hover:border-blue-700 hover:dark:bg-blue-600 hover:dark:border-blue-600",
     },
     borders: {
@@ -101,12 +93,10 @@ export const getButtonColor = (
       info: "text-blue-600 dark:text-blue-500",
     },
     outlineHover: {
-      contrast:
-        "hover:bg-gray-800 hover:text-gray-100 hover:dark:bg-slate-100 hover:dark:text-black",
+      contrast: "hover:bg-gray-800 hover:text-gray-100 hover:dark:bg-slate-100 hover:dark:text-black",
       success:
         "hover:bg-emerald-600 hover:text-white hover:text-white hover:dark:text-white hover:dark:border-emerald-600",
-      danger:
-        "hover:bg-red-600 hover:text-white hover:text-white hover:dark:text-white hover:dark:border-red-600",
+      danger: "hover:bg-red-600 hover:text-white hover:text-white hover:dark:text-white hover:dark:border-red-600",
       warning:
         "hover:bg-yellow-600 hover:text-white hover:text-white hover:dark:text-white hover:dark:border-yellow-600",
       info: "hover:bg-blue-600 hover:text-white hover:dark:text-white hover:dark:border-blue-600",
@@ -117,8 +107,7 @@ export const getButtonColor = (
     return color;
   }
 
-  const isOutlinedProcessed =
-    isOutlined && ["white", "whiteDark", "lightDark"].indexOf(color) < 0;
+  const isOutlinedProcessed = isOutlined && ["white", "whiteDark", "lightDark"].indexOf(color) < 0;
 
   const base = [colors.borders[color], colors.ring[color]];
 
@@ -129,9 +118,7 @@ export const getButtonColor = (
   }
 
   if (hasHover) {
-    base.push(
-      isOutlinedProcessed ? colors.outlineHover[color] : colors.bgHover[color]
-    );
+    base.push(isOutlinedProcessed ? colors.outlineHover[color] : colors.bgHover[color]);
   }
 
   return base;

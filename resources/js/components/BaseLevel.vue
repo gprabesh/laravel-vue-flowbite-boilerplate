@@ -22,9 +22,7 @@
       return h(
         "div",
         {
-          class: parentClass.concat(
-            this.mobile ? parentMobileClass : parentBaseClass
-          ),
+          class: parentClass.concat(this.mobile ? parentMobileClass : parentBaseClass),
         },
         this.$slots.default().map((element, index) => {
           const childClass =

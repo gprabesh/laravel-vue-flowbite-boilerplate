@@ -63,12 +63,7 @@
 </script>
 
 <template>
-  <fwb-modal
-    size="7xl"
-    v-if="isShowModal"
-    :not-escapable="true"
-    :persistent="true"
-  >
+  <fwb-modal size="7xl" v-if="isShowModal" :not-escapable="true" :persistent="true">
     <template #header>
       <div class="flex items-center text-lg">Journal Entry</div>
     </template>
@@ -78,11 +73,7 @@
           <label for="date">Date</label>
           <input type="date" v-model="formData.transactionDate" />
         </div>
-        <div
-          v-for="(transaction, index) in formData.transactions"
-          :key="index"
-          class="transaction-item"
-        >
+        <div v-for="(transaction, index) in formData.transactions" :key="index" class="transaction-item">
           <div>
             <label for="account">Account</label>
             <Multiselect
@@ -97,38 +88,22 @@
 
           <div>
             <label for="debit">Debit</label>
-            <input
-              type="number"
-              v-model="transaction.debit"
-              placeholder="Debit Amount"
-            />
+            <input type="number" v-model="transaction.debit" placeholder="Debit Amount" />
           </div>
 
           <div>
             <label for="credit">Credit</label>
-            <input
-              type="number"
-              v-model="transaction.credit"
-              placeholder="Credit Amount"
-            />
+            <input type="number" v-model="transaction.credit" placeholder="Credit Amount" />
           </div>
 
-          <button
-            @click.prevent="removeTransaction(index)"
-            v-if="formData.transactions.length > 2"
-          >
-            Remove
-          </button>
+          <button @click.prevent="removeTransaction(index)" v-if="formData.transactions.length > 2">Remove</button>
         </div>
 
         <button @click.prevent="addTransaction">Add Transaction</button>
 
         <div>
           <label for="description">Description</label>
-          <textarea
-            v-model="formData.description"
-            placeholder="Enter description"
-          ></textarea>
+          <textarea v-model="formData.description" placeholder="Enter description"></textarea>
         </div>
 
         <button type="submit">Submit</button>
@@ -136,12 +111,8 @@
     </template>
     <template #footer>
       <div class="flex justify-between">
-        <fwb-button @click="$emit('closeModal')" color="alternative">
-          Decline
-        </fwb-button>
-        <fwb-button @click="$emit('closeModal')" color="green">
-          I accept
-        </fwb-button>
+        <fwb-button @click="$emit('closeModal')" color="alternative"> Decline </fwb-button>
+        <fwb-button @click="$emit('closeModal')" color="green"> I accept </fwb-button>
       </div>
     </template>
   </fwb-modal>

@@ -46,9 +46,7 @@
     return base;
   });
 
-  const itemLabel = computed(() =>
-    props.item.isCurrentUser ? userStore.user?.name : props.item.label
-  );
+  const itemLabel = computed(() => (props.item.isCurrentUser ? userStore.user?.name : props.item.label));
 
   const isDropdownActive = ref(false);
 
@@ -101,20 +99,14 @@
     <div
       class="flex items-center"
       :class="{
-        'bg-gray-100 dark:bg-slate-800 lg:bg-transparent lg:dark:bg-transparent p-3 lg:p-0':
-          item.menu,
+        'bg-gray-100 dark:bg-slate-800 lg:bg-transparent lg:dark:bg-transparent p-3 lg:p-0': item.menu,
       }"
     >
-      <UserAvatarCurrentUser
-        v-if="item.isCurrentUser"
-        class="w-6 h-6 mr-3 inline-flex"
-      />
+      <UserAvatarCurrentUser v-if="item.isCurrentUser" class="w-6 h-6 mr-3 inline-flex" />
       <BaseIcon v-if="item.icon" :path="item.icon" class="transition-colors" />
-      <span
-        class="px-2 transition-colors"
-        :class="{ 'lg:hidden': item.isDesktopNoLabel && item.icon }"
-        >{{ itemLabel }}</span
-      >
+      <span class="px-2 transition-colors" :class="{ 'lg:hidden': item.isDesktopNoLabel && item.icon }">{{
+        itemLabel
+      }}</span>
       <BaseIcon
         v-if="item.menu"
         :path="isDropdownActive ? mdiChevronUp : mdiChevronDown"

@@ -38,11 +38,9 @@ axios.interceptors.response.use(
   (response) => response,
   function (error) {
     if (error.response.status === 401) {
-      Swal.fire("Oops...", "Session Expired, Please re-login.", "error").then(
-        function () {
-          window.location = "/login";
-        }
-      );
+      Swal.fire("Oops...", "Session Expired, Please re-login.", "error").then(function () {
+        window.location = "/login";
+      });
     }
     if (intercept_status_codes.includes(error.response.status)) {
       Swal.fire("Error!!", error.response.data.message, "error");

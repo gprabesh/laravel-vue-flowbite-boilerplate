@@ -28,15 +28,10 @@
   const checkedRows = ref([]);
 
   const itemsPaginated = computed(() =>
-    items.value.slice(
-      perPage.value * currentPage.value,
-      perPage.value * (currentPage.value + 1)
-    )
+    items.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
   );
 
-  const numPages = computed(() =>
-    Math.ceil(items.value.length / perPage.value)
-  );
+  const numPages = computed(() => Math.ceil(items.value.length / perPage.value));
 
   const currentPageHuman = computed(() => currentPage.value + 1);
 
@@ -66,10 +61,7 @@
     if (isChecked) {
       checkedRows.value.push(client);
     } else {
-      checkedRows.value = remove(
-        checkedRows.value,
-        (row) => row.id === client.id
-      );
+      checkedRows.value = remove(checkedRows.value, (row) => row.id === client.id);
     }
   };
 </script>
@@ -80,12 +72,7 @@
     <p>This is sample modal</p>
   </CardBoxModal>
 
-  <CardBoxModal
-    v-model="isModalDangerActive"
-    title="Please confirm"
-    button="danger"
-    has-cancel
-  >
+  <CardBoxModal v-model="isModalDangerActive" title="Please confirm" button="danger" has-cancel>
     <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
     <p>This is sample modal</p>
   </CardBoxModal>
@@ -105,15 +92,9 @@
     </thead>
     <tbody>
       <tr v-for="client in itemsPaginated" :key="client.id">
-        <TableCheckboxCell
-          v-if="checkable"
-          @checked="checked($event, client)"
-        />
+        <TableCheckboxCell v-if="checkable" @checked="checked($event, client)" />
         <td class="border-b-0 lg:w-6 before:hidden">
-          <UserAvatar
-            :username="client.name"
-            class="w-24 h-24 mx-auto lg:w-6 lg:h-6"
-          />
+          <UserAvatar :username="client.name" class="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
         </td>
         <td data-label="Name">
           {{ client.name }}
@@ -125,35 +106,17 @@
           {{ client.city }}
         </td>
         <td data-label="Progress" class="lg:w-32">
-          <progress
-            class="flex w-2/5 self-center lg:w-full"
-            max="100"
-            :value="client.progress"
-          >
+          <progress class="flex w-2/5 self-center lg:w-full" max="100" :value="client.progress">
             {{ client.progress }}
           </progress>
         </td>
         <td data-label="Created" class="lg:w-1 whitespace-nowrap">
-          <small
-            class="text-gray-500 dark:text-slate-400"
-            :title="client.created"
-            >{{ client.created }}</small
-          >
+          <small class="text-gray-500 dark:text-slate-400" :title="client.created">{{ client.created }}</small>
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
-            <BaseButton
-              color="info"
-              :icon="mdiEye"
-              small
-              @click="isModalActive = true"
-            />
-            <BaseButton
-              color="danger"
-              :icon="mdiTrashCan"
-              small
-              @click="isModalDangerActive = true"
-            />
+            <BaseButton color="info" :icon="mdiEye" small @click="isModalActive = true" />
+            <BaseButton color="danger" :icon="mdiTrashCan" small @click="isModalDangerActive = true" />
           </BaseButtons>
         </td>
       </tr>

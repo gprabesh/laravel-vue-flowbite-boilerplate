@@ -72,9 +72,7 @@
     return null;
   });
 
-  const labelClass = computed(() =>
-    props.small && props.icon ? "px-1" : "px-2"
-  );
+  const labelClass = computed(() => (props.small && props.icon ? "px-1" : "px-2"));
 
   const componentClass = computed(() => {
     const base = [

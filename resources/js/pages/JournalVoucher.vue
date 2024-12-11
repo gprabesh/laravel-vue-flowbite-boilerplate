@@ -60,20 +60,12 @@
 
 <template>
   <SectionMain>
-    <SectionTitleLineWithButton
-      :icon="mdiNewspaperVariantMultiple"
-      title="Journal Voucher"
-      main
-    >
+    <SectionTitleLineWithButton :icon="mdiNewspaperVariantMultiple" title="Journal Voucher" main>
       <BaseButton :icon="mdiPlusCircle" @click="showModal" color="whiteDark" />
     </SectionTitleLineWithButton>
     <CardBox has-table>
       <div id="tabulator"></div>
     </CardBox>
-    <VoucherEntry
-      v-if="isShowModal"
-      :is-show-modal="isShowModal"
-      @closeModal="closeModal()"
-    ></VoucherEntry>
+    <VoucherEntry v-if="isShowModal" :is-show-modal="isShowModal" @closeModal="closeModal()"></VoucherEntry>
   </SectionMain>
 </template>

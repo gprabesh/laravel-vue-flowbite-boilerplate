@@ -39,13 +39,7 @@
     <SectionFullScreen v-slot="{ cardClass }" bg="purplePink">
       <CardBox :class="cardClass" is-form @submit.prevent="submit">
         <FormField label="Login" help="Please enter your login">
-          <FormControl
-            v-model="form.email"
-            :icon="mdiAccount"
-            name="login"
-            type="email"
-            autocomplete="email"
-          />
+          <FormControl v-model="form.email" :icon="mdiAccount" name="login" type="email" autocomplete="email" />
         </FormField>
 
         <FormField label="Password" help="Please enter your password">
@@ -58,12 +52,7 @@
           />
         </FormField>
 
-        <FormCheckRadio
-          v-model="form.remember"
-          name="remember"
-          label="Remember me"
-          :input-value="true"
-        />
+        <FormCheckRadio v-model="form.remember" name="remember" label="Remember me" :input-value="true" />
 
         <template #footer>
           <BaseButtons>

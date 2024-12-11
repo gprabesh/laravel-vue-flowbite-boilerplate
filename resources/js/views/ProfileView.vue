@@ -1,13 +1,7 @@
 <script setup>
   import { reactive } from "vue";
   import { useMainStore } from "@/stores/main";
-  import {
-    mdiAccount,
-    mdiMail,
-    mdiAsterisk,
-    mdiFormTextboxPassword,
-    mdiGithub,
-  } from "@mdi/js";
+  import { mdiAccount, mdiMail, mdiAsterisk, mdiFormTextboxPassword, mdiGithub } from "@mdi/js";
   import SectionMain from "@/components/SectionMain.vue";
   import CardBox from "@/components/CardBox.vue";
   import BaseDivider from "@/components/BaseDivider.vue";
@@ -65,13 +59,7 @@
         </FormField>
 
         <FormField label="Name" help="Required. Your name">
-          <FormControl
-            v-model="profileForm.name"
-            :icon="mdiAccount"
-            name="username"
-            required
-            autocomplete="username"
-          />
+          <FormControl v-model="profileForm.name" :icon="mdiAccount" name="username" required autocomplete="username" />
         </FormField>
         <FormField label="E-mail" help="Required. Your e-mail">
           <FormControl
@@ -93,10 +81,7 @@
       </CardBox>
 
       <CardBox is-form @submit.prevent="submitPass">
-        <FormField
-          label="Current password"
-          help="Required. Your current password"
-        >
+        <FormField label="Current password" help="Required. Your current password">
           <FormControl
             v-model="passwordForm.password_current"
             :icon="mdiAsterisk"
@@ -120,10 +105,7 @@
           />
         </FormField>
 
-        <FormField
-          label="Confirm password"
-          help="Required. New password one more time"
-        >
+        <FormField label="Confirm password" help="Required. New password one more time">
           <FormControl
             v-model="passwordForm.password_confirmation"
             :icon="mdiFormTextboxPassword"

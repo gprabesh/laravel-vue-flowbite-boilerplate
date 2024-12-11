@@ -51,34 +51,17 @@
     >
       <NavBar
         :menu="menuNavBar"
-        :class="[
-          layoutAsidePadding,
-          { 'ml-60 lg:ml-0': isAsideMobileExpanded },
-        ]"
+        :class="[layoutAsidePadding, { 'ml-60 lg:ml-0': isAsideMobileExpanded }]"
         @menu-click="menuClick"
       >
-        <NavBarItemPlain
-          display="flex lg:hidden"
-          @click.prevent="isAsideMobileExpanded = !isAsideMobileExpanded"
-        >
-          <BaseIcon
-            :path="isAsideMobileExpanded ? mdiBackburger : mdiForwardburger"
-            size="24"
-          />
+        <NavBarItemPlain display="flex lg:hidden" @click.prevent="isAsideMobileExpanded = !isAsideMobileExpanded">
+          <BaseIcon :path="isAsideMobileExpanded ? mdiBackburger : mdiForwardburger" size="24" />
         </NavBarItemPlain>
-        <NavBarItemPlain
-          display="hidden lg:flex xl:hidden"
-          @click.prevent="isAsideLgActive = true"
-        >
+        <NavBarItemPlain display="hidden lg:flex xl:hidden" @click.prevent="isAsideLgActive = true">
           <BaseIcon :path="mdiMenu" size="24" />
         </NavBarItemPlain>
         <NavBarItemPlain use-margin>
-          <FormControl
-            placeholder="Search (ctrl+k)"
-            ctrl-k-focus
-            transparent
-            borderless
-          />
+          <FormControl placeholder="Search (ctrl+k)" ctrl-k-focus transparent borderless />
         </NavBarItemPlain>
       </NavBar>
       <AsideMenu

@@ -36,62 +36,37 @@
 
   const notificationSettingsModel = ref([]);
 
-  const notificationsOutline = computed(
-    () => notificationSettingsModel.value.indexOf("outline") > -1
-  );
+  const notificationsOutline = computed(() => notificationSettingsModel.value.indexOf("outline") > -1);
 
   const buttonSettingsModel = ref([]);
 
-  const buttonsOutline = computed(
-    () => buttonSettingsModel.value.indexOf("outline") > -1
-  );
+  const buttonsOutline = computed(() => buttonSettingsModel.value.indexOf("outline") > -1);
 
-  const buttonsSmall = computed(
-    () => buttonSettingsModel.value.indexOf("small") > -1
-  );
+  const buttonsSmall = computed(() => buttonSettingsModel.value.indexOf("small") > -1);
 
-  const buttonsDisabled = computed(
-    () => buttonSettingsModel.value.indexOf("disabled") > -1
-  );
+  const buttonsDisabled = computed(() => buttonSettingsModel.value.indexOf("disabled") > -1);
 
-  const buttonsRounded = computed(
-    () => buttonSettingsModel.value.indexOf("rounded") > -1
-  );
+  const buttonsRounded = computed(() => buttonSettingsModel.value.indexOf("rounded") > -1);
 
   const pillsSettingsModel = ref(["icon"]);
 
-  const pillsOutline = computed(
-    () => pillsSettingsModel.value.indexOf("outline") > -1
-  );
+  const pillsOutline = computed(() => pillsSettingsModel.value.indexOf("outline") > -1);
 
-  const pillsSmall = computed(
-    () => pillsSettingsModel.value.indexOf("small") > -1
-  );
+  const pillsSmall = computed(() => pillsSettingsModel.value.indexOf("small") > -1);
 
-  const pillsIcon = computed(() =>
-    pillsSettingsModel.value.indexOf("icon") > -1 ? mdiTrendingUp : null
-  );
+  const pillsIcon = computed(() => (pillsSettingsModel.value.indexOf("icon") > -1 ? mdiTrendingUp : null));
 
   const darkModeStore = useDarkModeStore();
 </script>
 
 <template>
   <LayoutAuthenticated>
-    <CardBoxModal
-      v-model="modalOneActive"
-      title="Please confirm action"
-      button-label="Confirm"
-      has-cancel
-    >
+    <CardBoxModal v-model="modalOneActive" title="Please confirm action" button-label="Confirm" has-cancel>
       <p>This is sample modal</p>
       <p>Lorem ipsum dolor</p>
     </CardBoxModal>
 
-    <CardBoxModal
-      v-model="modalTwoActive"
-      title="Unhandled exception"
-      button="danger"
-    >
+    <CardBoxModal v-model="modalTwoActive" title="Unhandled exception" button="danger">
       <p>This is sample modal</p>
       <p>Lorem ipsum dolor</p>
     </CardBoxModal>
@@ -105,14 +80,8 @@
 
     <SectionMain>
       <CardBox class="md:w-7/12 lg:w-5/12 xl:w-4/12 shadow-2xl md:mx-auto">
-        <div
-          class="text-center py-24 lg:py-12 text-gray-500 dark:text-slate-400"
-        >
-          <BaseButton
-            label="Toggle"
-            color="contrast"
-            @click="darkModeStore.set()"
-          />
+        <div class="text-center py-24 lg:py-12 text-gray-500 dark:text-slate-400">
+          <BaseButton label="Toggle" color="contrast" @click="darkModeStore.set()" />
         </div>
       </CardBox>
     </SectionMain>
@@ -190,11 +159,7 @@
     </SectionTitle>
 
     <SectionMain>
-      <NotificationBar
-        color="info"
-        :icon="mdiInformation"
-        :outline="notificationsOutline"
-      >
+      <NotificationBar color="info" :icon="mdiInformation" :outline="notificationsOutline">
         <b>Info state</b>. NotificationBar
         <template #right>
           <BaseButton
@@ -207,11 +172,7 @@
         </template>
       </NotificationBar>
 
-      <NotificationBar
-        color="success"
-        :icon="mdiCheckCircle"
-        :outline="notificationsOutline"
-      >
+      <NotificationBar color="success" :icon="mdiCheckCircle" :outline="notificationsOutline">
         <b>Success state</b>. NotificationBar
         <template #right>
           <BaseButton
@@ -224,11 +185,7 @@
         </template>
       </NotificationBar>
 
-      <NotificationBar
-        color="warning"
-        :icon="mdiAlert"
-        :outline="notificationsOutline"
-      >
+      <NotificationBar color="warning" :icon="mdiAlert" :outline="notificationsOutline">
         <b>Warning state</b>. NotificationBar
         <template #right>
           <BaseButton
@@ -241,11 +198,7 @@
         </template>
       </NotificationBar>
 
-      <NotificationBar
-        color="danger"
-        :icon="mdiAlertCircle"
-        :outline="notificationsOutline"
-      >
+      <NotificationBar color="danger" :icon="mdiAlertCircle" :outline="notificationsOutline">
         <b>Danger state</b>. NotificationBar
         <template #right>
           <BaseButton
@@ -258,11 +211,7 @@
         </template>
       </NotificationBar>
 
-      <NotificationBar
-        color="contrast"
-        :icon="mdiContrastCircle"
-        :outline="notificationsOutline"
-      >
+      <NotificationBar color="contrast" :icon="mdiContrastCircle" :outline="notificationsOutline">
         <b>Contrast</b>. NotificationBar
       </NotificationBar>
     </SectionMain>
@@ -468,41 +417,11 @@
         <BaseDivider />
 
         <BaseButtons>
-          <PillTag
-            color="contrast"
-            label="Contrast"
-            :small="pillsSmall"
-            :outline="pillsOutline"
-            :icon="pillsIcon"
-          />
-          <PillTag
-            color="info"
-            label="Info"
-            :small="pillsSmall"
-            :outline="pillsOutline"
-            :icon="pillsIcon"
-          />
-          <PillTag
-            color="success"
-            label="Success"
-            :small="pillsSmall"
-            :outline="pillsOutline"
-            :icon="pillsIcon"
-          />
-          <PillTag
-            color="warning"
-            label="Warning"
-            :small="pillsSmall"
-            :outline="pillsOutline"
-            :icon="pillsIcon"
-          />
-          <PillTag
-            color="danger"
-            label="Danger"
-            :small="pillsSmall"
-            :outline="pillsOutline"
-            :icon="pillsIcon"
-          />
+          <PillTag color="contrast" label="Contrast" :small="pillsSmall" :outline="pillsOutline" :icon="pillsIcon" />
+          <PillTag color="info" label="Info" :small="pillsSmall" :outline="pillsOutline" :icon="pillsIcon" />
+          <PillTag color="success" label="Success" :small="pillsSmall" :outline="pillsOutline" :icon="pillsIcon" />
+          <PillTag color="warning" label="Warning" :small="pillsSmall" :outline="pillsOutline" :icon="pillsIcon" />
+          <PillTag color="danger" label="Danger" :small="pillsSmall" :outline="pillsOutline" :icon="pillsIcon" />
         </BaseButtons>
       </CardBox>
     </SectionMain>
@@ -539,10 +458,7 @@
         </CardBox>
       </div>
 
-      <SectionTitleLineWithButton
-        :icon="mdiAlertCircle"
-        title="Empty variation"
-      />
+      <SectionTitleLineWithButton :icon="mdiAlertCircle" title="Empty variation" />
 
       <CardBox>
         <CardBoxComponentEmpty />

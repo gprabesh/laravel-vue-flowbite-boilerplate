@@ -27,11 +27,5 @@
 </script>
 
 <template>
-  <PillTagPlain
-    class="border rounded-full"
-    :class="componentClass"
-    :icon="icon"
-    :label="label"
-    :small="small"
-  />
+  <PillTagPlain class="border rounded-full" :class="componentClass" :icon="icon" :label="label" :small="small" />
 </template>

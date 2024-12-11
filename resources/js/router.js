@@ -95,10 +95,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
     await userStore.fetchUser();
   }
-  if (
-    to.matched.some((record) => record.meta.requiresAuth) &&
-    !userStore.isAuthenticated
-  ) {
+  if (to.matched.some((record) => record.meta.requiresAuth) && !userStore.isAuthenticated) {
     console.log("redirecting");
     next("/login");
   } else {

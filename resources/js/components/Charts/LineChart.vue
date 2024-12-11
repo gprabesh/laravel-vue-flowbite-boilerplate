@@ -1,14 +1,6 @@
 <script setup>
   import { ref, watch, computed, onMounted } from "vue";
-  import {
-    Chart,
-    LineElement,
-    PointElement,
-    LineController,
-    LinearScale,
-    CategoryScale,
-    Tooltip,
-  } from "chart.js";
+  import { Chart, LineElement, PointElement, LineController, LinearScale, CategoryScale, Tooltip } from "chart.js";
 
   const props = defineProps({
     data: {
@@ -21,14 +13,7 @@
 
   let chart;
 
-  Chart.register(
-    LineElement,
-    PointElement,
-    LineController,
-    LinearScale,
-    CategoryScale,
-    Tooltip
-  );
+  Chart.register(LineElement, PointElement, LineController, LinearScale, CategoryScale, Tooltip);
 
   onMounted(() => {
     chart = new Chart(root.value, {

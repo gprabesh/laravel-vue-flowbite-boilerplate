@@ -76,9 +76,7 @@
 
   const computedType = computed(() => (props.options ? "select" : props.type));
 
-  const controlIconH = computed(() =>
-    props.type === "textarea" ? "h-full" : "h-12"
-  );
+  const controlIconH = computed(() => (props.type === "textarea" ? "h-full" : "h-12"));
 
   const selectEl = ref(null);
 
@@ -110,18 +108,8 @@
 
 <template>
   <div class="relative">
-    <select
-      v-if="computedType === 'select'"
-      :id="id"
-      v-model="computedValue"
-      :name="name"
-      :class="inputElClass"
-    >
-      <option
-        v-for="option in options"
-        :key="option.id ?? option"
-        :value="option"
-      >
+    <select v-if="computedType === 'select'" :id="id" v-model="computedValue" :name="name" :class="inputElClass">
+      <option v-for="option in options" :key="option.id ?? option" :value="option">
         {{ option.label ?? option }}
       </option>
     </select>

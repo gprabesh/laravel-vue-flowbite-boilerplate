@@ -35,13 +35,6 @@
       "resources/js/main.js"
     ]
   },
-  "_SectionMain.js": {
-    "file": "assets/SectionMain.js",
-    "name": "SectionMain",
-    "imports": [
-      "resources/js/main.js"
-    ]
-  },
   "_SectionTitle.js": {
     "file": "assets/SectionTitle.js",
     "name": "SectionTitle",
@@ -84,7 +77,6 @@
     "isDynamicEntry": true,
     "imports": [
       "resources/js/main.js",
-      "_SectionMain.js",
       "_FormCheckRadioGroup.js",
       "_FormFilePicker.js",
       "_FormField.js",
@@ -109,7 +101,6 @@
     "isDynamicEntry": true,
     "imports": [
       "resources/js/main.js",
-      "_SectionMain.js",
       "_FormField.js",
       "_FormFilePicker.js"
     ]
@@ -121,7 +112,6 @@
     "isDynamicEntry": true,
     "imports": [
       "_SectionTitle.js",
-      "_SectionMain.js",
       "resources/js/main.js"
     ]
   },
@@ -132,7 +122,6 @@
     "isDynamicEntry": true,
     "imports": [
       "resources/js/main.js",
-      "_SectionMain.js",
       "_CardBoxComponentEmpty.js"
     ]
   },
@@ -143,7 +132,6 @@
     "isDynamicEntry": true,
     "imports": [
       "resources/js/main.js",
-      "_SectionMain.js",
       "_SectionTitle.js",
       "_FormField.js",
       "_FormCheckRadioGroup.js",

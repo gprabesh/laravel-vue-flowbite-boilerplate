@@ -25,8 +25,7 @@ class FiscalYearSeeder extends Seeder
             'company_id' => 1,
             'fiscal_year_id' => 1
         ]);
-        DB::table('users_account_books')->upsert(['user_id' => 1, 'account_book_id' => 1], [
-            'account_book_id' => 1,
+        DB::table('users_account_books')->upsert(['user_id' => 1, 'account_book_id' => 1, 'is_preferred' => 1], [
             'is_preferred' => 1
         ]);
     }

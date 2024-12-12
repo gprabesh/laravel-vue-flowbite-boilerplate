@@ -15,7 +15,7 @@ class Transaction extends Model
         return LogOptions::defaults()
         ->logOnly(['*']);
     }
-    public function transactionDetails()
+    public function transactions()
     {
         return $this->hasMany(TransactionDetail::class, 'transaction_id');
     }

@@ -11,9 +11,11 @@ class AccountController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->jsonResponse(data: ['accounts' => Account::all()]);
+        $company_id = $request->company_id;
+        $accounts = Account::select('id', 'name', 'is_cost_center', 'is_opening_balance_account', 'company_id')->where('company_id', $company_id)->get();
+        return $this->jsonResponse(data: ['accounts' => $accounts]);
     }
 
     /**

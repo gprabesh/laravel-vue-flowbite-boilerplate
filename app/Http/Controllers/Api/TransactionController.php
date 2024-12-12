@@ -126,7 +126,8 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+        $transaction = Transaction::with('transactions', 'transactions.account')->where('id', $transaction->id)->first();
+        return $this->jsonResponse(data: ['transaction' => $transaction]);
     }
 
     /**

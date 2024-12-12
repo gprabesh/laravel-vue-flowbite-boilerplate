@@ -19,7 +19,7 @@
       type: Boolean,
       default: true,
     },
-    voucherId: {
+    transactionId: {
       type: Number,
       default: null,
     },
@@ -29,8 +29,8 @@
     transactionDate: new Date().toISOString().split("T")[0],
     referenceNo: null,
     transactions: [
-      { id: null, account: null, debitAmount: 0, creditAmount: 0 },
-      { id: null, account: null, debitAmount: 0, creditAmount: 0 },
+      { id: null, account: null, debit_amount: 0, credit_amount: 0 },
+      { id: null, account: null, debit_amount: 0, credit_amount: 0 },
     ],
     description: "",
   });
@@ -44,8 +44,8 @@
     formData.value.transactions.push({
       id: null,
       account: null,
-      debitAmount: 0,
-      creditAmount: 0,
+      debit_amount: 0,
+      credit_amount: 0,
     });
   };
   // Remove a transaction entry (only for entries beyond the first two)
@@ -55,16 +55,16 @@
     }
   };
   const totalDebit = computed(() => {
-    return formData.value.transactions.reduce((sum, t) => sum + (t.debitAmount || 0), 0);
+    return formData.value.transactions.reduce((sum, t) => sum + (t.debit_amount || 0), 0);
   });
   const totalCredit = computed(() => {
-    return formData.value.transactions.reduce((sum, t) => sum + (t.creditAmount || 0), 0);
+    return formData.value.transactions.reduce((sum, t) => sum + (t.credit_amount || 0), 0);
   });
 
   // Validation to check total debit and credit amounts
   const validateDebitCredit = () => {
-    const totalDebit = formData.value.transactions.reduce((sum, t) => sum + (t.debitAmount || 0), 0);
-    const totalCredit = formData.value.transactions.reduce((sum, t) => sum + (t.creditAmount || 0), 0);
+    const totalDebit = formData.value.transactions.reduce((sum, t) => sum + (t.debit_amount || 0), 0);
+    const totalCredit = formData.value.transactions.reduce((sum, t) => sum + (t.credit_amount || 0), 0);
 
     return totalDebit === totalCredit;
   };
@@ -101,10 +101,10 @@
     }
   };
   const resetDebit = (event, index) => {
-    formData.value.transactions[index].debitAmount = 0;
+    formData.value.transactions[index].debit_amount = 0;
   };
   const resetCredit = (event, index) => {
-    formData.value.transactions[index].creditAmount = 0;
+    formData.value.transactions[index].credit_amount = 0;
   };
 
   // Form submission handler
@@ -124,14 +124,14 @@
       formSubmitData.transactions.push({
         id: element.id,
         account_id: element.account.id,
-        debit_amount: element.debitAmount,
-        credit_amount: element.creditAmount,
+        debit_amount: element.debit_amount,
+        credit_amount: element.credit_amount,
       });
     });
     formSubmitData.reference_no = formData.value.referenceNo;
     formSubmitData.transaction_date = formData.value.transactionDate;
     try {
-      const saveResponse = await axios.post("/transactions", formSubmitData);
+      await axios.post("/transactions", formSubmitData);
       Swal.fire("Journal Saved");
       emit("closeModalSuccess");
     } catch (error) {
@@ -147,8 +147,23 @@
       console.error("Error fetching accounts:", error);
     }
   };
-  onMounted(() => {
-    fetchAccounts();
+  const fetchEditData = async () => {
+    try {
+      const editResponse = await axios.get("/transactions/" + props.transactionId + "/edit");
+      const transaction = editResponse.data.transaction;
+      formData.value.transactionDate = transaction.transaction_date;
+      formData.value.referenceNo = transaction.reference_no;
+      formData.value.description = transaction.description;
+      formData.value.transactions = transaction.transactions;
+    } catch (error) {
+      console.error("Error fetching accounts:", error);
+    }
+  };
+  onMounted(async () => {
+    await fetchAccounts();
+    if (props.transactionId > 0) {
+      await fetchEditData();
+    }
   });
 </script>
 
@@ -179,7 +194,6 @@
           <table>
             <thead>
               <tr>
-                <!-- <td width="10%">DR/CR</td> -->
                 <td width="35%">Account</td>
                 <td width="20%">Debit</td>
                 <td width="20%">Credit</td>
@@ -190,12 +204,6 @@
             </thead>
             <tbody>
               <tr v-for="(transaction, index) in formData.transactions" :key="index">
-                <!-- <td>
-                  <select class="form-control" v-model="transaction.type">
-                    <option value="DR">Dr</option>
-                    <option value="CR">Cr</option>
-                  </select>
-                </td> -->
                 <td>
                   <multiselect
                     v-model="transaction.account"
@@ -209,7 +217,7 @@
                 <td>
                   <input
                     type="number"
-                    v-model.number="transaction.debitAmount"
+                    v-model.number="transaction.debit_amount"
                     placeholder="Debit Amount"
                     class="border rounded px-2 py-1 w-24"
                     min="0"
@@ -220,7 +228,7 @@
                 <td>
                   <input
                     type="number"
-                    v-model.number="transaction.creditAmount"
+                    v-model.number="transaction.credit_amount"
                     placeholder="Credit Amount"
                     class="border rounded px-2 py-1 w-24"
                     min="0"
@@ -239,19 +247,16 @@
                     +
                   </fwb-button>
 
-                  <!-- Remove Transaction Button (for entries after first two) -->
                   <fwb-button type="button" @click="removeTransaction(index)" color="red" class="m-1"> X </fwb-button>
                 </td>
               </tr>
             </tbody>
           </table>
-          <!-- Description Input -->
           <div>
             <label class="block mb-2">Description:</label>
             <textarea v-model="formData.description" class="w-full border rounded px-2 py-1" rows="3"></textarea>
           </div>
 
-          <!-- Submit Button -->
           <button type="submit" class="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600">
             Submit Transaction
           </button>

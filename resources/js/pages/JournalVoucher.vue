@@ -9,6 +9,7 @@
   import VoucherEntry from "@/components/Forms/VoucherEntry.vue";
   import Swal from "sweetalert2";
   const isShowModal = ref(false);
+  const selectedTransactionId = ref(null);
 
   function closeModalSuccess() {
     isShowModal.value = false;
@@ -89,8 +90,8 @@
           cellClick: function (e, cell) {
             e.preventDefault();
             if (e.target.dataset.type == "edit") {
-              const transaction_id = e.target.dataset.transaction_id;
-              console.log("transaction id", transaction_id);
+              selectedTransactionId.value = +e.target.dataset.transaction_id;
+              showModal();
             } else if (e.target.dataset.type == "print") {
               const transaction_id = e.target.dataset.transaction_id;
               console.log("transaction id", transaction_id);
@@ -133,6 +134,7 @@
     </CardBox>
     <VoucherEntry
       v-if="isShowModal"
+      :transaction-id="selectedTransactionId"
       :is-show-modal="isShowModal"
       @closeModalSuccess="closeModalSuccess()"
       @closeModal="closeModal()"

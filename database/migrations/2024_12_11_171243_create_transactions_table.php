@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->date('transaction_date');
             $table->string('reference_no')->nullable();
-            $table->string('voucher_no')->unique();
+            // $table->string('voucher_no')->unique();
             $table->text('description')->nullable();
             $table->decimal('transaction_amount', 15, 2)->default(0);
-            $table->string('voucher_no')->nullable();
             $table->tinyInteger('is_opening_balance_transaction')->default(0);
             $table->foreignId('account_book_id')->constrained('account_books', 'id');
+            $table->foreignId('company_id')->constrained('companies', 'id');
             $table->foreignId('created_by')->nullable()->constrained('users', 'id');
             $table->foreignId('updated_by')->nullable()->constrained('users', 'id');
             $table->timestamps();

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('account_id')->constrained('accounts', 'id');
             $table->foreignId('transaction_id')->constrained('transactions', 'id');
             $table->foreignId('account_book_id')->constrained('account_books', 'id');
+            $table->foreignId('company_id')->constrained('companies', 'id');
             $table->foreignId('created_by')->nullable()->constrained('users', 'id');
             $table->foreignId('updated_by')->nullable()->constrained('users', 'id');
             $table->timestamps();

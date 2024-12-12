@@ -22,7 +22,8 @@ class TransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'transactionDate' => 'required|date',
+            'transaction_date' => 'required|date',
+            'reference_no' => 'nullable|string',
             'description' => 'nullable|string|max:500',
             'transactions' => 'required|array|min:2',
             'transactions.*.account_id' => 'required|exists:accounts,id',

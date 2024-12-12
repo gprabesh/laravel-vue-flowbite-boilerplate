@@ -8,15 +8,34 @@ use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Api\TransactionRequest;
 
 class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $account_book_id = $request->account_book_id;
+        $transactions = DB::table('transactions as t')
+            ->join('transaction_details as td', 'td.transaction_id', '=', 't.id')
+            ->join('accounts as a', 'a.id', '=', 'td.account_id')
+            ->leftJoin('users as u', 'u.id', '=', 't.created_by')
+            ->where('t.account_book_id', $account_book_id)
+            ->groupBy('t.id')
+            ->orderBy('t.id', 'desc')
+            ->select(
+                't.id',
+                't.transaction_date',
+                't.reference_no',
+                't.description',
+                DB::raw('GROUP_CONCAT(a.name) as accounts'),
+                't.transaction_amount',
+                'u.name as created_by'
+            )
+            ->get();
+        return $this->jsonResponse(data: ['transactions' => $transactions]);
     }
 
     /**
@@ -30,18 +49,18 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TransactionRequest $request)
     {
-        $account_book_id = 1;
-        $company_id = 1;
+        $account_book_id = $request->account_book_id;
+        $company_id = $request->company_id;
         try {
             // Begin database transaction
             DB::beginTransaction();
 
             // Validate total debit and credit amounts
             $transactions = $request->input('transactions');
-            $totalDebit = array_sum(array_column($transactions, 'debitAmount'));
-            $totalCredit = array_sum(array_column($transactions, 'creditAmount'));
+            $totalDebit = array_sum(array_column($transactions, 'debit_amount'));
+            $totalCredit = array_sum(array_column($transactions, 'credit_amount'));
 
             if ($totalDebit !== $totalCredit) {
                 return response()->json([
@@ -51,22 +70,28 @@ class TransactionController extends Controller
 
             // Create main transaction record
             $transaction = Transaction::create([
-                'transaction_date' => $request->input('transactionDate'),
+                'transaction_date' => $request->input('transaction_date'),
+                'reference_no' => $request->input('reference_no'),
                 'description' => $request->input('description'),
                 'transaction_amount' => $totalDebit,
                 'created_by' => Auth::id(),
                 'updated_by' => Auth::id(),
+                'account_book_id' => $account_book_id,
+                'company_id' => $company_id
             ]);
 
             // Create transaction details
             foreach ($transactions as $detail) {
                 TransactionDetail::create([
+                    'transaction_date' => $request->input('transaction_date'),
                     'transaction_id' => $transaction->id,
-                    'account_id' => $detail['accountID'],
-                    'debit_amount' => $detail['debitAmount'] ?? 0,
-                    'credit_amount' => $detail['creditAmount'] ?? 0,
+                    'account_id' => $detail['account_id'],
+                    'debit_amount' => $detail['debit_amount'] ?? 0,
+                    'credit_amount' => $detail['credit_amount'] ?? 0,
                     'created_by' => Auth::id(),
                     'updated_by' => Auth::id(),
+                    'account_book_id' => $account_book_id,
+                    'company_id' => $company_id
                 ]);
             }
 

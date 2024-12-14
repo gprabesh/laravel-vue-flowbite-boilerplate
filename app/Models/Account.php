@@ -14,7 +14,7 @@ class Account extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->logOnly(['*']);
+        ->logOnly(['*'])->logOnlyDirty();
     }
 
     public function transactionDetails()

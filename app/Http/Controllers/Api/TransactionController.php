@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\CustomException;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\TransactionDetail;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Api\TransactionRequest;
+use Illuminate\Support\Facades\Log;
 
 class TransactionController extends Controller
 {
@@ -54,21 +56,16 @@ class TransactionController extends Controller
         $account_book_id = $request->account_book_id;
         $company_id = $request->company_id;
         try {
-            // Begin database transaction
             DB::beginTransaction();
 
-            // Validate total debit and credit amounts
             $transactions = $request->input('transactions');
             $totalDebit = array_sum(array_column($transactions, 'debit_amount'));
             $totalCredit = array_sum(array_column($transactions, 'credit_amount'));
 
             if ($totalDebit !== $totalCredit) {
-                return response()->json([
-                    'message' => 'Total debit and credit amounts must be equal'
-                ], 422);
+                throw new CustomException('Total debit and credit amounts must be equal');
             }
 
-            // Create main transaction record
             $transaction = Transaction::create([
                 'transaction_date' => $request->input('transaction_date'),
                 'reference_no' => $request->input('reference_no'),
@@ -80,7 +77,6 @@ class TransactionController extends Controller
                 'company_id' => $company_id
             ]);
 
-            // Create transaction details
             foreach ($transactions as $detail) {
                 TransactionDetail::create([
                     'transaction_date' => $request->input('transaction_date'),
@@ -94,22 +90,17 @@ class TransactionController extends Controller
                     'company_id' => $company_id
                 ]);
             }
-
-            // Commit the database transaction
             DB::commit();
 
-            return response()->json([
-                'message' => 'Transaction created successfully',
-                'transaction' => $transaction
-            ], 201);
-        } catch (\Exception $e) {
-            // Rollback in case of error
+            return $this->jsonResponse(status: 200, message: 'Transaction created successfully');
+        } catch (CustomException $ce) {
             DB::rollBack();
-
-            return response()->json([
-                'message' => 'Error creating transaction',
-                'error' => $e->getMessage()
-            ], 500);
+            Log::error($ce);
+            return $this->jsonResponse(status: 500, message: $ce->getMessage());
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            return $this->jsonResponse(status: 500, message: 'Error creating transaction');
         }
     }
 
@@ -133,9 +124,68 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Transaction $transaction)
+    public function update(TransactionRequest $request, Transaction $transaction)
     {
-        //
+        $account_book_id = $request->account_book_id;
+        $company_id = $request->company_id;
+        try {
+            DB::beginTransaction();
+
+            $transactions = $request->input('transactions');
+            $deletedTransactions = $request->input('deleted_transaction_details');
+            $totalDebit = array_sum(array_column($transactions, 'debit_amount'));
+            $totalCredit = array_sum(array_column($transactions, 'credit_amount'));
+
+            if ($totalDebit !== $totalCredit) {
+                throw new CustomException('Total debit and credit amounts must be equal');
+            }
+
+            $updated = $transaction->update([
+                'transaction_date' => $request->input('transaction_date'),
+                'reference_no' => $request->input('reference_no'),
+                'description' => $request->input('description'),
+                'transaction_amount' => $totalDebit,
+                'updated_by' => Auth::id(),
+            ]);
+
+            foreach ($transactions as $detail) {
+                if ($detail['id'] > 0) {
+                    TransactionDetail::where('id', $detail['id'])->update([
+                        'transaction_date' => $request->input('transaction_date'),
+                        'account_id' => $detail['account_id'],
+                        'debit_amount' => $detail['debit_amount'] ?? 0,
+                        'credit_amount' => $detail['credit_amount'] ?? 0,
+                        'updated_by' => Auth::id(),
+                    ]);
+                } else {
+                    TransactionDetail::create([
+                        'transaction_date' => $request->input('transaction_date'),
+                        'transaction_id' => $transaction->id,
+                        'account_id' => $detail['account_id'],
+                        'debit_amount' => $detail['debit_amount'] ?? 0,
+                        'credit_amount' => $detail['credit_amount'] ?? 0,
+                        'created_by' => Auth::id(),
+                        'updated_by' => Auth::id(),
+                        'account_book_id' => $account_book_id,
+                        'company_id' => $company_id
+                    ]);
+                }
+            }
+            foreach ($deletedTransactions as $key => $value) {
+                TransactionDetail::where('id', $value['id'])->first()->delete();
+            }
+            DB::commit();
+
+            return $this->jsonResponse(status: 200, message: 'Transaction updated successfully');
+        } catch (CustomException $ce) {
+            DB::rollBack();
+            Log::error($ce);
+            return $this->jsonResponse(status: 500, message: $ce->getMessage());
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            return $this->jsonResponse(status: 500, message: 'Error updating transaction');
+        }
     }
 
     /**

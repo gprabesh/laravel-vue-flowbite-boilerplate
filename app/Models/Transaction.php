@@ -13,7 +13,7 @@ class Transaction extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->logOnly(['*']);
+        ->logOnly(['*'])->logOnlyDirty();
     }
     public function transactions()
     {

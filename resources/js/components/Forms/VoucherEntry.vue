@@ -33,6 +33,7 @@
       { id: null, account: null, debit_amount: 0, credit_amount: 0 },
     ],
     description: "",
+    deleted_transaction_details: [],
   });
 
   // Accounts options (to be populated from API)
@@ -49,25 +50,20 @@
     });
   };
   // Remove a transaction entry (only for entries beyond the first two)
-  const removeTransaction = (index) => {
+  const removeTransaction = (index, transaction) => {
+    if (transaction.id > 0) {
+      formData.value.deleted_transaction_details.push(transaction);
+    }
     if (formData.value.transactions.length > 2) {
       formData.value.transactions.splice(index, 1);
     }
   };
   const totalDebit = computed(() => {
-    return formData.value.transactions.reduce((sum, t) => sum + (t.debit_amount || 0), 0);
+    return formData.value.transactions.reduce((sum, t) => sum + +t.debit_amount, 0);
   });
   const totalCredit = computed(() => {
-    return formData.value.transactions.reduce((sum, t) => sum + (t.credit_amount || 0), 0);
+    return formData.value.transactions.reduce((sum, t) => sum + +t.credit_amount, 0);
   });
-
-  // Validation to check total debit and credit amounts
-  const validateDebitCredit = () => {
-    const totalDebit = formData.value.transactions.reduce((sum, t) => sum + (t.debit_amount || 0), 0);
-    const totalCredit = formData.value.transactions.reduce((sum, t) => sum + (t.credit_amount || 0), 0);
-
-    return totalDebit === totalCredit;
-  };
   const validateForm = () => {
     let valid = true;
     if (!formData.value.description) {
@@ -109,11 +105,6 @@
 
   // Form submission handler
   const submitForm = async () => {
-    // Validate transactions
-    if (!validateDebitCredit()) {
-      Swal.fire("Total Debit and Credit amounts must be equal");
-      return;
-    }
     if (!validateForm()) {
       return;
     }
@@ -130,8 +121,14 @@
     });
     formSubmitData.reference_no = formData.value.referenceNo;
     formSubmitData.transaction_date = formData.value.transactionDate;
+    formSubmitData.deleted_transaction_details = formData.value.deleted_transaction_details;
     try {
-      await axios.post("/transactions", formSubmitData);
+      if (props.transactionId > 0) {
+        formSubmitData._method = "PUT";
+        await axios.post("/transactions/" + props.transactionId, formSubmitData);
+      } else {
+        await axios.post("/transactions", formSubmitData);
+      }
       Swal.fire("Journal Saved");
       emit("closeModalSuccess");
     } catch (error) {
@@ -247,7 +244,9 @@
                     +
                   </fwb-button>
 
-                  <fwb-button type="button" @click="removeTransaction(index)" color="red" class="m-1"> X </fwb-button>
+                  <fwb-button type="button" @click="removeTransaction(index, transaction)" color="red" class="m-1">
+                    X
+                  </fwb-button>
                 </td>
               </tr>
             </tbody>

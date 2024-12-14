@@ -13,6 +13,6 @@ class AccountCategory extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->logOnly(['*']);
+        ->logOnly(['*'])->logOnlyDirty();
     }
 }

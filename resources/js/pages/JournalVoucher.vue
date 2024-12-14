@@ -141,8 +141,8 @@
   const actionButtons = (cell, formatterParams) => {
     let buttons = "";
     var transaction_id = cell.getRow().getData().id;
-    buttons += `<fwb-button data-type='edit' class="bg-blue-500 text-white rounded px-2 py-1 hover:bg-blue-600 m-1" data-transaction_id="${transaction_id}" >Edit</fwb-button>`;
-    buttons += `<fwb-button data-type='print' class="bg-blue-500 text-white rounded px-2 py-1 hover:bg-blue-600 m-1" "data-toggle="tooltip" data-placement="top" title="Print" data-transaction_id="${transaction_id}">Print</fwb-button>`;
+    buttons += `<button data-type='edit' class="fa-solid fa-pen-to-square py-1 m-1" data-transaction_id="${transaction_id}" title="Edit"></button>`;
+    buttons += `<button data-type='print' class="fa-solid fa-print py-1 m-1" "data-toggle="tooltip" data-placement="top" title="Print" data-transaction_id="${transaction_id}"></button>`;
     return buttons;
   };
 </script>

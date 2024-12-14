@@ -16,7 +16,7 @@ if (
   (!localStorage["darkMode"] && window.matchMedia("(prefers-color-scheme: dark)").matches) ||
   localStorage["darkMode"] === "1"
 ) {
-  darkModeStore.set(true);
+  darkModeStore.set(false);
 }
 
 const defaultDocumentTitle = "Admin One Vue 3 Tailwind";

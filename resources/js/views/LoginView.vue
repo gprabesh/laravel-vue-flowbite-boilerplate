@@ -27,7 +27,7 @@
       await axios.post("/login", form);
       await userStore.fetchUser();
       router.push({
-        name: "dashboard",
+        name: "journal-voucher",
         query: {
           account_book_id: userStore.user.account_book_id,
           company_id: userStore.user.company_id,

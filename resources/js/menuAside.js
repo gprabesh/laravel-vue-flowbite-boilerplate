@@ -16,11 +16,11 @@ import {
 } from "@mdi/js";
 
 export default [
-  {
-    to: "/dashboard",
-    icon: mdiMonitor,
-    label: "Dashboard",
-  },
+  // {
+  //   to: "/dashboard",
+  //   icon: mdiMonitor,
+  //   label: "Dashboard",
+  // },
   {
     to: "/journal-voucher",
     icon: mdiNewspaperVariantMultiple,

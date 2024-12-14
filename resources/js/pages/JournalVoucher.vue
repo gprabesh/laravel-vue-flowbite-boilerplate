@@ -133,6 +133,7 @@
           headerFilter: true,
           hozAlign: "right",
           bottomCalc: "sum",
+          formatter: "money",
           bottomCalcFormatter: "money",
         },
         {

@@ -7,7 +7,7 @@ import {
   mdiResponsive,
   mdiCogBox,
   mdiNewspaperVariantMultiple,
-  mdiBookCheck
+  mdiBookCheck,
 } from "@mdi/js";
 
 export default [

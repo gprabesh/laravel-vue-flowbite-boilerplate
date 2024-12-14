@@ -66,6 +66,7 @@ Route::prefix('api')->group(function () {
         Route::middleware(AccountBookInterceptor::class)->group(function () {
             Route::resource('accounts', AccountController::class);
             Route::resource('transactions', TransactionController::class);
+            Route::get('transactions/get-print-data/{id}', [TransactionController::class, 'getPrintData']);
         });
     });
 });

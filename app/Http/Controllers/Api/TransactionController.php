@@ -150,7 +150,7 @@ class TransactionController extends Controller
 
             foreach ($transactions as $detail) {
                 if ($detail['id'] > 0) {
-                    TransactionDetail::where('id', $detail['id'])->update([
+                    TransactionDetail::where('id', $detail['id'])->first()->update([
                         'transaction_date' => $request->input('transaction_date'),
                         'account_id' => $detail['account_id'],
                         'debit_amount' => $detail['debit_amount'] ?? 0,
@@ -194,5 +194,37 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
+    }
+
+    public function getPrintData($id)
+    {
+        $print_data = DB::table('transactions as t')
+            ->join('transaction_details as td', 'td.transaction_id', '=', 't.id')
+            ->join('accounts as a', 'td.account_id', '=', 'a.id')
+            ->join('companies as c', 't.company_id', '=', 'c.id')
+            ->join('users as u', 't.created_by', '=', 'u.id')
+            ->where('t.id', $id)
+            ->groupBy('t.id')
+            ->select(
+                't.id',
+                'c.name as company',
+                DB::raw('"JV8182-00123" as voucher_no'),
+                't.description',
+                't.reference_no',
+                't.transaction_date',
+                'u.name as created_by',
+                DB::raw('SUM(td.debit_amount) as total_debit'),
+                DB::raw('SUM(td.credit_amount) as total_credit'),
+                DB::raw('JSON_ARRAYAGG(
+                            JSON_OBJECT(
+                                "id", td.id,
+                                "account", a.name,
+                                "debit_amount", td.debit_amount,
+                                "credit_amount", td.credit_amount
+                            )
+                        ) AS transaction_details')
+            )
+            ->first();
+        return $this->jsonResponse(data: ['print_data' => $print_data]);
     }
 }

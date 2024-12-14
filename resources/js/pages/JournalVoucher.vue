@@ -1,3 +1,28 @@
+<template>
+  <SectionMain>
+    <SectionTitleLineWithButton :icon="mdiNewspaperVariantMultiple" title="Journal Voucher" main>
+      <BaseButton :icon="mdiPlusCircle" @click="showTransactionModal = true" color="whiteDark" />
+    </SectionTitleLineWithButton>
+    <CardBox has-table>
+      <div id="tabulator"></div>
+    </CardBox>
+    <VoucherEntry
+      v-if="showTransactionModal"
+      :transaction-id="selectedTransactionId"
+      :show-transaction-modal="showTransactionModal"
+      @closeTransactionModalSuccess="closeTransactionModalSuccess()"
+      @closeTransactionModal="closeTransactionModal()"
+    ></VoucherEntry>
+    <VoucherPreview
+      :not-escapable="true"
+      :persistent="true"
+      v-if="showVoucherPreviewModal"
+      :show-voucher-preview-modal="showVoucherPreviewModal"
+      :transaction-id="selectedTransactionId"
+      @closeVoucherPreviewModal="showVoucherPreviewModal = false"
+    />
+  </SectionMain>
+</template>
 <script setup>
   import { ref, onMounted } from "vue";
   import { mdiNewspaperVariantMultiple, mdiPlusCircle } from "@mdi/js";
@@ -7,20 +32,19 @@
   import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
   import { TabulatorFull as Tabulator } from "tabulator-tables";
   import VoucherEntry from "@/components/Forms/VoucherEntry.vue";
+  import VoucherPreview from "@/components/VoucherPreview.vue";
   import Swal from "sweetalert2";
-  const isShowModal = ref(false);
+  const showTransactionModal = ref(false);
+  const showVoucherPreviewModal = ref(false);
   const selectedTransactionId = ref(null);
 
-  function closeModalSuccess() {
-    isShowModal.value = false;
+  function closeTransactionModalSuccess() {
+    showTransactionModal.value = false;
     searchData();
   }
 
-  function closeModal() {
-    isShowModal.value = false;
-  }
-  function showModal() {
-    isShowModal.value = true;
+  function closeTransactionModal() {
+    showTransactionModal.value = false;
   }
 
   let tabledata = ref([]);
@@ -89,12 +113,11 @@
           formatter: actionButtons,
           cellClick: function (e, cell) {
             e.preventDefault();
+            selectedTransactionId.value = +e.target.dataset.transaction_id;
             if (e.target.dataset.type == "edit") {
-              selectedTransactionId.value = +e.target.dataset.transaction_id;
-              showModal();
+              showTransactionModal.value = true;
             } else if (e.target.dataset.type == "print") {
-              const transaction_id = e.target.dataset.transaction_id;
-              console.log("transaction id", transaction_id);
+              showVoucherPreviewModal.value = true;
             }
           },
         },
@@ -123,21 +146,3 @@
     return buttons;
   };
 </script>
-
-<template>
-  <SectionMain>
-    <SectionTitleLineWithButton :icon="mdiNewspaperVariantMultiple" title="Journal Voucher" main>
-      <BaseButton :icon="mdiPlusCircle" @click="showModal" color="whiteDark" />
-    </SectionTitleLineWithButton>
-    <CardBox has-table>
-      <div id="tabulator"></div>
-    </CardBox>
-    <VoucherEntry
-      v-if="isShowModal"
-      :transaction-id="selectedTransactionId"
-      :is-show-modal="isShowModal"
-      @closeModalSuccess="closeModalSuccess()"
-      @closeModal="closeModal()"
-    ></VoucherEntry>
-  </SectionMain>
-</template>

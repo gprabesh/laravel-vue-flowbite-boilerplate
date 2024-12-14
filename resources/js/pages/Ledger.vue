@@ -1,9 +1,9 @@
 <template>
   <SectionMain>
-    <SectionTitleLineWithButton :icon="mdiNewspaperVariantMultiple" title="Journal Voucher" main>
-      <BaseButton :icon="mdiPlusCircle" @click="showTransactionModal = true" color="whiteDark" />
+    <SectionTitleLineWithButton :icon="mdiBookCheck" title="Ledger" main>
+      <BaseButton color="whiteDark" />
     </SectionTitleLineWithButton>
-    <DateRangeSearch @search="searchData"></DateRangeSearch>
+    <DateRangeSearch @search="searchData" :account-selection="true"></DateRangeSearch>
     <CardBox has-table>
       <DataLoader :isLoading="isLoading">
         <div id="tabulator"></div>
@@ -28,7 +28,7 @@
 </template>
 <script setup>
   import { ref, onMounted } from "vue";
-  import { mdiNewspaperVariantMultiple, mdiPlusCircle } from "@mdi/js";
+  import { mdiNewspaperVariantMultiple, mdiPlusCircle, mdiBookCheck } from "@mdi/js";
   import SectionMain from "@/components/SectionMain.vue";
   import CardBox from "@/components/CardBox.vue";
   import BaseButton from "@/components/BaseButton.vue";
@@ -48,7 +48,6 @@
   function closeTransactionModalSuccess() {
     showTransactionModal.value = false;
     selectedTransactionId.value = null;
-    searchData();
   }
 
   function closeTransactionModal() {
@@ -60,19 +59,18 @@
   const tabulator = ref(null);
   onMounted(async () => {
     initializeTabulator();
-    await searchData();
   });
-  const searchData = async () => {
+  const searchData = async (account) => {
     const dateRangeSearch = useDateRangeSearch();
     try {
       isLoading.value = true;
-      const voucherResponse = await axios.get("/transactions", {
+      const voucherResponse = await axios.get("/transactions/get-ledger-data/" + account.id, {
         params: {
           from: dateRangeSearch.fromDate,
           to: dateRangeSearch.toDate,
         },
       });
-      tabledata.value = voucherResponse.data.transactions;
+      tabledata.value = voucherResponse.data.ledgerData;
       tabulator.value.setData(tabledata.value);
       isLoading.value = false;
     } catch (error) {
@@ -128,15 +126,15 @@
           headerFilter: true,
         },
         {
-          title: "Accounts",
-          field: "accounts",
+          title: "Created by",
+          field: "created_by",
           frozen: true,
           headerFilterPlaceholder: " ",
           headerFilter: true,
         },
         {
-          title: "Amount",
-          field: "transaction_amount",
+          title: "Debit",
+          field: "debit_amount",
           frozen: true,
           headerFilterPlaceholder: " ",
           headerFilter: true,
@@ -146,13 +144,26 @@
           bottomCalcFormatter: "money",
         },
         {
-          title: "Created by",
-          field: "created_by",
+          title: "Credit",
+          field: "credit_amount",
           frozen: true,
           headerFilterPlaceholder: " ",
           headerFilter: true,
+          hozAlign: "right",
+          bottomCalc: "sum",
+          formatter: "money",
+          bottomCalcFormatter: "money",
         },
-
+        {
+          title: "Balance",
+          frozen: true,
+          hozAlign: "right",
+          formatter: function (cell) {
+            const balance = cell.getRow().getData().balance;
+            const balance_type = cell.getRow().getData().balance_type;
+            return `${balance} ${balance_type}`;
+          },
+        },
         {
           title: "Action",
           field: "transaction_date",

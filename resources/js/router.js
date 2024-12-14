@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/HomeView.vue";
 import JournalVoucher from "@/pages/JournalVoucher.vue";
+import Ledger from "@/pages/Ledger.vue";
 import { useUserStore } from "@/stores/user";
 
 const routes = [
@@ -21,6 +22,15 @@ const routes = [
     path: "/journal-voucher",
     name: "journal-voucher",
     component: JournalVoucher,
+  },
+  {
+    meta: {
+      title: "Ledger",
+      requiresAuth: true,
+    },
+    path: "/ledger",
+    name: "ledger",
+    component: Ledger,
   },
 
   {

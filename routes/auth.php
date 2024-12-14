@@ -67,6 +67,7 @@ Route::prefix('api')->group(function () {
             Route::resource('accounts', AccountController::class);
             Route::resource('transactions', TransactionController::class);
             Route::get('transactions/get-print-data/{id}', [TransactionController::class, 'getPrintData']);
+            Route::get('transactions/get-ledger-data/{account}', [TransactionController::class, 'getLedgerData']);
         });
     });
 });

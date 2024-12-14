@@ -1,18 +1,13 @@
 import {
   mdiAccountCircle,
-  mdiMonitor,
-  mdiGithub,
-  mdiLock,
   mdiAlertCircle,
   mdiSquareEditOutline,
   mdiTable,
-  mdiViewList,
   mdiTelevisionGuide,
   mdiResponsive,
-  mdiPalette,
-  mdiReact,
   mdiCogBox,
   mdiNewspaperVariantMultiple,
+  mdiBookCheck
 } from "@mdi/js";
 
 export default [
@@ -25,6 +20,11 @@ export default [
     to: "/journal-voucher",
     icon: mdiNewspaperVariantMultiple,
     label: "Journal Voucher",
+  },
+  {
+    to: "/ledger",
+    icon: mdiBookCheck,
+    label: "Ledger",
   },
   {
     to: "/tables",

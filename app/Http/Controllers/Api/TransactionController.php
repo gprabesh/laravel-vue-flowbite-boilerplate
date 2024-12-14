@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Classes\Helper;
-use App\Exceptions\CustomException;
+use App\Models\Account;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\CustomException;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Api\TransactionRequest;
-use Illuminate\Support\Facades\Log;
 
 class TransactionController extends Controller
 {
@@ -232,5 +233,15 @@ class TransactionController extends Controller
             )
             ->first();
         return $this->jsonResponse(data: ['print_data' => $print_data]);
+    }
+
+    public function getLedgerData(Request $request, Account $account)
+    {
+        $account_book_id = $request->account_book_id;
+        $from = $request->from;
+        $to = $request->to;
+        $account_id = $account->id;
+        $results = Helper::getLedgerData($account_book_id, $from, $to, $account_id);
+        return $this->jsonResponse(data: ['ledgerData' => $results]);
     }
 }

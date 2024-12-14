@@ -1,7 +1,7 @@
 <template>
   <fwb-modal size="7xl" v-if="showTransactionModal" :not-escapable="notEscapable" :persistent="persistent">
     <template #header>
-      <div class="flex items-center text-lg">Journal Entry</div>
+      <div class="flex items-center text-lg">Journal Entry {{ voucherNo ? `(${voucherNo})`:'' }}</div>
     </template>
     <template #body>
       <div class="p-4 space-y-4">
@@ -159,6 +159,12 @@
   const totalCredit = computed(() => {
     return formData.value.transactions.reduce((sum, t) => sum + +t.credit_amount, 0);
   });
+  const voucherNo = computed(() => {
+    if (formData.value.voucher_no && formData.value.voucher_type) {
+      return `${formData.value.voucher_type}${String(formData.value.voucher_no).padStart(5,0)}`;
+    }
+    return null;
+  });
   const validateForm = () => {
     let valid = true;
     if (!formData.value.description) {
@@ -238,6 +244,9 @@
       formData.value.referenceNo = transaction.reference_no;
       formData.value.description = transaction.description;
       formData.value.transactions = transaction.transactions;
+      formData.value.voucher_no = transaction.voucher_no;
+      formData.value.voucher_type = transaction.voucher_type;
+
     } catch (error) {
       console.error("Error fetching accounts:", error);
     }

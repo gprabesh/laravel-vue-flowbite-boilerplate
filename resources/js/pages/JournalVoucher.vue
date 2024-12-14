@@ -47,11 +47,13 @@
 
   function closeTransactionModalSuccess() {
     showTransactionModal.value = false;
+    selectedTransactionId.value = null;
     searchData();
   }
 
   function closeTransactionModal() {
     showTransactionModal.value = false;
+    selectedTransactionId.value = null;
   }
 
   const tabledata = ref([]);
@@ -100,6 +102,13 @@
         {
           title: "Entry Date",
           field: "transaction_date",
+          frozen: true,
+          headerFilterPlaceholder: " ",
+          headerFilter: true,
+        },
+        {
+          title: "Voucher no.",
+          field: "voucher_no",
           frozen: true,
           headerFilterPlaceholder: " ",
           headerFilter: true,

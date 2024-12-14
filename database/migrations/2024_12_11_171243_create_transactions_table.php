@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->date('transaction_date');
             $table->string('reference_no')->nullable();
-            // $table->string('voucher_no')->unique();
+            $table->integer('voucher_no')->nullable()->unique();
+            $table->char('voucher_type')->default('JV');
             $table->text('description')->nullable();
             $table->decimal('transaction_amount', 15, 2)->default(0);
             $table->tinyInteger('is_opening_balance_transaction')->default(0);
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->foreignId('created_by')->nullable()->constrained('users', 'id');
             $table->foreignId('updated_by')->nullable()->constrained('users', 'id');
             $table->timestamps();
+            $table->unique(['voucher_no', 'voucher_type', 'account_book_id']);
         });
     }
 

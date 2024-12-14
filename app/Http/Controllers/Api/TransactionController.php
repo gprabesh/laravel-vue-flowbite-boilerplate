@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Classes\Helper;
 use App\Exceptions\CustomException;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ class TransactionController extends Controller
                 't.reference_no',
                 't.description',
                 DB::raw('GROUP_CONCAT(a.name) as accounts'),
+                DB::raw('concat(t.voucher_type, LPAD(t.voucher_no, 5, "0")) as voucher_no'),
                 't.transaction_amount',
                 'u.name as created_by'
             )
@@ -77,7 +79,8 @@ class TransactionController extends Controller
                 'created_by' => Auth::id(),
                 'updated_by' => Auth::id(),
                 'account_book_id' => $account_book_id,
-                'company_id' => $company_id
+                'company_id' => $company_id,
+                'voucher_no' => Helper::generateVoucherNumber($account_book_id)
             ]);
 
             foreach ($transactions as $detail) {
@@ -211,7 +214,7 @@ class TransactionController extends Controller
             ->select(
                 't.id',
                 'c.name as company',
-                DB::raw('"JV8182-00123" as voucher_no'),
+                DB::raw('concat(t.voucher_type, LPAD(t.voucher_no, 5, "0")) as voucher_no'),
                 't.description',
                 't.reference_no',
                 't.transaction_date',

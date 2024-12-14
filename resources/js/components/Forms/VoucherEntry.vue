@@ -4,101 +4,95 @@
       <div class="flex items-center text-lg">Journal Entry</div>
     </template>
     <template #body>
-      <div class="p-4">
-        <form @submit.prevent="submitForm" class="space-y-4">
-          <div class="flex">
-            <div class="flex items-center space-x-4 m-1">
-              <label class="font-semibold">Entry Date:</label>
-              <input
-                type="date"
-                v-model="formData.transactionDate"
-                :max="calenderMaxDate"
-                class="border rounded px-2 py-1"
-              />
-            </div>
-            <div class="flex items-center space-x-4 m-1">
-              <label class="font-semibold">Reference no:</label>
-              <input type="text" v-model="formData.referenceNo" class="border rounded px-2 py-1" />
-            </div>
+      <div class="p-4 space-y-4">
+        <div class="flex">
+          <div class="flex items-center space-x-4 m-1">
+            <label class="font-semibold">Entry Date:</label>
+            <input
+              type="date"
+              v-model="formData.transactionDate"
+              :max="calenderMaxDate"
+              class="border rounded px-2 py-1"
+            />
           </div>
-
-          <table>
-            <thead>
-              <tr>
-                <td width="35%">Account</td>
-                <td width="20%">Debit</td>
-                <td width="20%">Credit</td>
-                <td width="15%">
-                  Action <fwb-button type="button" @click="addTransaction" color="green" class="m-1"> + </fwb-button>
-                </td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(transaction, index) in formData.transactions" :key="index">
-                <td>
-                  <multiselect
-                    v-model="transaction.account"
-                    :options="accountOptions"
-                    placeholder="Select Account"
-                    label="name"
-                    track-by="id"
-                  ></multiselect>
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    v-model.number="transaction.debit_amount"
-                    placeholder="Debit Amount"
-                    class="border rounded px-2 py-1 w-24"
-                    min="0"
-                    step="0.01"
-                    @change="resetCredit($event, index)"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    v-model.number="transaction.credit_amount"
-                    placeholder="Credit Amount"
-                    class="border rounded px-2 py-1 w-24"
-                    min="0"
-                    step="0.01"
-                    @change="resetDebit($event, index)"
-                  />
-                </td>
-                <td>
-                  <fwb-button
-                    v-if="index === formData.transactions.length - 1"
-                    type="button"
-                    @click="addTransaction"
-                    color="green"
-                    class="m-1"
-                  >
-                    +
-                  </fwb-button>
-
-                  <fwb-button type="button" @click="removeTransaction(index, transaction)" color="red" class="m-1">
-                    X
-                  </fwb-button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div>
-            <label class="block mb-2">Description:</label>
-            <textarea v-model="formData.description" class="w-full border rounded px-2 py-1" rows="3"></textarea>
+          <div class="flex items-center space-x-4 m-1">
+            <label class="font-semibold">Reference no:</label>
+            <input type="text" v-model="formData.referenceNo" class="border rounded px-2 py-1" />
           </div>
+        </div>
 
-          <button type="submit" class="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600">
-            Submit Transaction
-          </button>
-        </form>
+        <table>
+          <thead>
+            <tr>
+              <td width="35%">Account</td>
+              <td width="20%">Debit</td>
+              <td width="20%">Credit</td>
+              <td width="15%">
+                Action <fwb-button type="button" @click="addTransaction" color="green" class="m-1"> + </fwb-button>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(transaction, index) in formData.transactions" :key="index">
+              <td>
+                <multiselect
+                  v-model="transaction.account"
+                  :options="accountOptions"
+                  placeholder="Select Account"
+                  label="name"
+                  track-by="id"
+                ></multiselect>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  v-model.number="transaction.debit_amount"
+                  placeholder="Debit Amount"
+                  class="border rounded px-2 py-1 w-24"
+                  min="0"
+                  step="0.01"
+                  @change="resetCredit($event, index)"
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  v-model.number="transaction.credit_amount"
+                  placeholder="Credit Amount"
+                  class="border rounded px-2 py-1 w-24"
+                  min="0"
+                  step="0.01"
+                  @change="resetDebit($event, index)"
+                />
+              </td>
+              <td>
+                <fwb-button
+                  v-if="index === formData.transactions.length - 1"
+                  type="button"
+                  @click="addTransaction"
+                  color="green"
+                  class="m-1"
+                >
+                  +
+                </fwb-button>
+
+                <fwb-button type="button" @click="removeTransaction(index, transaction)" color="red" class="m-1">
+                  X
+                </fwb-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <label class="block mb-2">Description:</label>
+          <textarea v-model="formData.description" class="w-full border rounded px-2 py-1" rows="3"></textarea>
+        </div>
       </div>
     </template>
     <template #footer>
       <div class="flex justify-between">
-        <fwb-button @click="$emit('closeTransactionModal')" color="alternative"> Decline </fwb-button>
-        <fwb-button @click="$emit('closeTransactionModal')" color="green"> I accept </fwb-button>
+        <fwb-button @click="$emit('closeTransactionModal')" color="alternative"> Close </fwb-button>
+        <fwb-button @click="submitForm()" color="green"> Submit </fwb-button>
       </div>
     </template>
   </fwb-modal>

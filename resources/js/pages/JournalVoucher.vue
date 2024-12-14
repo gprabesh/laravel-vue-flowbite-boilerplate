@@ -3,8 +3,11 @@
     <SectionTitleLineWithButton :icon="mdiNewspaperVariantMultiple" title="Journal Voucher" main>
       <BaseButton :icon="mdiPlusCircle" @click="showTransactionModal = true" color="whiteDark" />
     </SectionTitleLineWithButton>
+    <DateRangeSearch @search="searchData"></DateRangeSearch>
     <CardBox has-table>
-      <div id="tabulator"></div>
+      <DataLoader :isLoading="isLoading">
+        <div id="tabulator"></div>
+      </DataLoader>
     </CardBox>
     <VoucherEntry
       v-if="showTransactionModal"
@@ -34,9 +37,13 @@
   import VoucherEntry from "@/components/Forms/VoucherEntry.vue";
   import VoucherPreview from "@/components/VoucherPreview.vue";
   import Swal from "sweetalert2";
+  import DateRangeSearch from "@/components/DateRangeSearch.vue";
+  import DataLoader from "@/components/DataLoader.vue";
+  import { useDateRangeSearch } from "@/stores/dateRangeSearch";
   const showTransactionModal = ref(false);
   const showVoucherPreviewModal = ref(false);
   const selectedTransactionId = ref(null);
+  const isLoading = ref(false);
 
   function closeTransactionModalSuccess() {
     showTransactionModal.value = false;
@@ -47,9 +54,39 @@
     showTransactionModal.value = false;
   }
 
-  let tabledata = ref([]);
+  const tabledata = ref([]);
   const tabulator = ref(null);
   onMounted(async () => {
+    initializeTabulator();
+    await searchData();
+  });
+  const searchData = async () => {
+    const dateRangeSearch = useDateRangeSearch();
+    try {
+      isLoading.value = true;
+      const voucherResponse = await axios.get("/transactions", {
+        params: {
+          from: dateRangeSearch.fromDate,
+          to: dateRangeSearch.toDate,
+        },
+      });
+      tabledata.value = voucherResponse.data.transactions;
+      tabulator.value.setData(tabledata.value);
+      isLoading.value = false;
+    } catch (error) {
+      console.log(error);
+      isLoading.value = false;
+      Swal.fire("Failed to get data");
+    }
+  };
+  const actionButtons = (cell, formatterParams) => {
+    let buttons = "";
+    const transaction_id = cell.getRow().getData().id;
+    buttons += `<button data-type='edit' class="fa-solid fa-pen-to-square py-1 m-1" data-transaction_id="${transaction_id}" title="Edit"></button>`;
+    buttons += `<button data-type='print' class="fa-solid fa-print py-1 m-1" "data-toggle="tooltip" data-placement="top" title="Print" data-transaction_id="${transaction_id}"></button>`;
+    return buttons;
+  };
+  const initializeTabulator = () => {
     tabulator.value = new Tabulator("#tabulator", {
       placeholder: "No record(s) found",
       pagination: "local",
@@ -123,26 +160,5 @@
         },
       ],
     });
-    await searchData();
-  });
-  const onSearch = () => {
-    console.log("Search performed");
-  };
-  const searchData = async () => {
-    try {
-      const voucherResponse = await axios.get("/transactions");
-      tabledata.value = voucherResponse.data.transactions;
-      tabulator.value.setData(tabledata.value);
-    } catch (error) {
-      console.log(error);
-      Swal.fire("Failed to get data");
-    }
-  };
-  const actionButtons = (cell, formatterParams) => {
-    let buttons = "";
-    var transaction_id = cell.getRow().getData().id;
-    buttons += `<button data-type='edit' class="fa-solid fa-pen-to-square py-1 m-1" data-transaction_id="${transaction_id}" title="Edit"></button>`;
-    buttons += `<button data-type='print' class="fa-solid fa-print py-1 m-1" "data-toggle="tooltip" data-placement="top" title="Print" data-transaction_id="${transaction_id}"></button>`;
-    return buttons;
   };
 </script>

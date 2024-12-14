@@ -25,6 +25,9 @@ class TransactionController extends Controller
             ->join('accounts as a', 'a.id', '=', 'td.account_id')
             ->leftJoin('users as u', 'u.id', '=', 't.created_by')
             ->where('t.account_book_id', $account_book_id)
+            ->when(isset($request->from) && isset($request->to), function ($query) use ($request) {
+                return $query->whereBetween('t.transaction_date', [$request->from, $request->to]);
+            })
             ->groupBy('t.id')
             ->orderBy('t.id', 'desc')
             ->select(

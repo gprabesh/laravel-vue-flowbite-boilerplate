@@ -33,8 +33,6 @@
 </template>
 
 <script setup>
-  import { defineProps } from "vue";
-
   // Define props
   const props = defineProps({
     isLoading: {

@@ -107,4 +107,106 @@ class Helper
         $results->prepend($opening_balance_object);
         return $results;
     }
+
+    public static function getTrialBalanceData($account_book_id, $from, $to)
+    {
+        $from = Carbon::parse($from)->toDateString();
+        $to = Carbon::parse($to)->toDateString();
+        $fiscal_start_date = self::getFiscalYearStartDate($account_book_id);
+        $opening_query = "";
+        if (Carbon::parse($fiscal_start_date)->lt(Carbon::parse($from))) {
+            $opening_query .= "and t.transaction_date < '$from'";
+        } elseif (Carbon::parse($fiscal_start_date)->gte(Carbon::parse($from))) {
+            $opening_query .= "and t.is_opening_balance_transaction = 1";
+        }
+        $where_condition = "and t.transaction_date between '$from' and '$to'";
+        $results = DB::select("SELECT
+                                    x.id,
+                                    x.name,
+                                    x.account_category_id,
+                                    sum(x.opening_debit) as opening_debit,
+                                    sum(x.opening_credit) as opening_credit,
+                                    sum(x.debit_amount) as debit_amount,
+                                    sum(x.credit_amount) as credit_amount,
+                                    sum(x.closing_debit) as closing_debit,
+                                    sum(x.closing_credit) as closing_credit
+                                FROM
+                                    (
+                                        select
+                                            a.id,
+                                            a.name,
+                                            a.account_category_id,
+                                            sum(td.debit_amount) as opening_debit,
+                                            sum(td.credit_amount) as opening_credit,
+                                            0 as debit_amount,
+                                            0 as credit_amount,
+                                            0 as closing_debit,
+                                            0 as closing_credit
+                                        from
+                                            accounts a
+                                            join transaction_details td on td.account_id = a.id
+                                            join transactions t on td.transaction_id = t.id
+                                        where
+                                            1=1
+                                            and a.is_opening_balance_account = 0
+                                            and t.account_book_id = 1
+                                            $opening_query
+                                        GROUP by
+                                            a.id
+                                        UNION
+                                        ALL
+                                        select
+                                            a.id,
+                                            a.name,
+                                            a.account_category_id,
+                                            0 as opening_debit,
+                                            0 as opening_credit,
+                                            sum(td.debit_amount) as debit_amount,
+                                            sum(td.credit_amount) as credit_amount,
+                                            0 as closing_debit,
+                                            0 as closing_credit
+                                        from
+                                            accounts a
+                                            join transaction_details td on td.account_id = a.id
+                                            join transactions t on td.transaction_id = t.id
+                                        where
+                                            1=1 
+                                            and a.is_opening_balance_account = 0
+                                            and t.account_book_id = 1
+                                            and t.is_opening_balance_transaction = 0
+                                            $where_condition
+                                        GROUP by
+                                            a.id
+                                        UNION
+                                        ALL
+                                        select
+                                            a.id,
+                                            a.name,
+                                            a.account_category_id,
+                                            0 as opening_debit,
+                                            0 as opening_credit,
+                                            0 as debit_amount,
+                                            0 as credit_amount,
+                                            0 as closing_debit,
+                                            0 as closing_credit
+                                        from
+                                            accounts a
+                                        where
+                                            a.is_opening_balance_account = 0
+                                    ) as x
+                                Group By
+                                    x.id,
+                                    x.name,
+                                    x.account_category_id;");
+        foreach ($results as $key => $value) {
+            $closing_bal = round($value->opening_debit - $value->opening_credit + $value->debit_amount - $value->credit_amount, 2);
+            if ($closing_bal < 0) {
+                $value->closing_credit = abs($closing_bal);
+            } else {
+                $value->closing_debit = $closing_bal;
+            }
+        }
+
+        return $results;
+    }
 }

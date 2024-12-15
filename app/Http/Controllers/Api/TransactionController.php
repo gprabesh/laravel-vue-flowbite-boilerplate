@@ -244,4 +244,12 @@ class TransactionController extends Controller
         $results = Helper::getLedgerData($account_book_id, $from, $to, $account_id);
         return $this->jsonResponse(data: ['ledgerData' => $results]);
     }
+    public function getTrialBalanceData(Request $request)
+    {
+        $account_book_id = $request->account_book_id;
+        $from = $request->from;
+        $to = $request->to;
+        $results = Helper::getTrialBalanceData($account_book_id, $from, $to);
+        return $this->jsonResponse(data: ['trialBalanceData' => $results]);
+    }
 }

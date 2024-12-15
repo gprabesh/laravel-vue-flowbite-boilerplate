@@ -27,6 +27,11 @@ export default [
     label: "Ledger",
   },
   {
+    to: "/trial-balance",
+    icon: mdiTable,
+    label: "Trial Balance",
+  },
+  {
     to: "/tables",
     label: "Tables",
     icon: mdiTable,

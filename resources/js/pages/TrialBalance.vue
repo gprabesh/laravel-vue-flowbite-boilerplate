@@ -1,6 +1,6 @@
 <template>
   <SectionMain>
-    <SectionTitleLineWithButton :icon="mdiBookCheck" title="Ledger" main>
+    <SectionTitleLineWithButton :icon="mdiTable" title="Trial Balance" main>
       <BaseButton color="whiteDark" />
     </SectionTitleLineWithButton>
     <DateRangeSearch @search="searchData" :account-selection="false"></DateRangeSearch>
@@ -13,7 +13,7 @@
 </template>
 <script setup>
   import { ref, onMounted } from "vue";
-  import { mdiBookCheck } from "@mdi/js";
+  import { mdiTable } from "@mdi/js";
   import SectionMain from "@/components/SectionMain.vue";
   import CardBox from "@/components/CardBox.vue";
   import BaseButton from "@/components/BaseButton.vue";
@@ -23,11 +23,7 @@
   import DateRangeSearch from "@/components/DateRangeSearch.vue";
   import DataLoader from "@/components/DataLoader.vue";
   import { useDateRangeSearch } from "@/stores/dateRangeSearch";
-  const showTransactionModal = ref(false);
-  const selectedTransactionId = ref(null);
-  const isLoading = ref(false);
-
-
+    const isLoading = ref(false);
 
   const tabledata = ref([]);
   const tabulator = ref(null);

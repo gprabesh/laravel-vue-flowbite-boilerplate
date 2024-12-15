@@ -23,7 +23,7 @@
   import DateRangeSearch from "@/components/DateRangeSearch.vue";
   import DataLoader from "@/components/DataLoader.vue";
   import { useDateRangeSearch } from "@/stores/dateRangeSearch";
-    const isLoading = ref(false);
+  const isLoading = ref(false);
 
   const tabledata = ref([]);
   const tabulator = ref(null);

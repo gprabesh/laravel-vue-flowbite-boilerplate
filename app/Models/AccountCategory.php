@@ -5,6 +5,7 @@ namespace App\Models;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AccountCategory extends Model
 {
@@ -13,6 +14,21 @@ class AccountCategory extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->logOnly(['*'])->logOnlyDirty();
+            ->logOnly(['*'])->logOnlyDirty();
+    }
+
+    public function accountClass(): BelongsTo
+    {
+        return $this->belongsTo(AccountClass::class);
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(AccountCategory::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(AccountCategory::class, 'parent_id');
     }
 }

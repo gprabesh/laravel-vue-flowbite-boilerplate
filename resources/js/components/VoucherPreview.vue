@@ -4,9 +4,11 @@
       <div class="flex items-center text-lg">Preview</div>
     </template>
     <template #body>
-      <div ref="printContent" class="voucher-container">
-        <PrintVoucher :print-content="printData" v-if="printData" />
-      </div>
+      <DataLoader :isLoading="isLoading">
+        <div ref="printContent" class="voucher-container">
+          <PrintVoucher :print-content="printData" v-if="printData" />
+        </div>
+      </DataLoader>
     </template>
     <template #footer>
       <div class="flex justify-between">
@@ -44,6 +46,7 @@
   // Reference for print content
   const printContent = ref(null);
   const printData = ref(null);
+  const isLoading = ref(false);
 
   // Print method
   const printVoucher = () => {
@@ -136,9 +139,12 @@
 
   onMounted(async () => {
     try {
+      isLoading.value = true;
       const printResponse = await axios.get("transactions/get-print-data/" + props.transactionId);
       printData.value = printResponse.data.print_data;
+      isLoading.value = false;
     } catch (error) {
+      isLoading.value = false;
       console.log(error);
       Swal.fire("Failed to get data");
     }

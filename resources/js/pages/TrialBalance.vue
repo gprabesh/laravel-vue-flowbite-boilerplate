@@ -20,8 +20,7 @@
   import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
   import { TabulatorFull as Tabulator } from "tabulator-tables";
   import Swal from "sweetalert2";
-  import DateRangeSearch from "@/components/DateRangeSearch.vue";
-  import DataLoader from "@/components/DataLoader.vue";
+
   import { useDateRangeSearch } from "@/stores/dateRangeSearch";
   const isLoading = ref(false);
 

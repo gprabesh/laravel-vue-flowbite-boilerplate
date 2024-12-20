@@ -6,9 +6,21 @@ import App from "./App.vue";
 import router from "./router";
 import { AxiosPlugin } from "./plugins/axios";
 import { useDarkModeStore } from "./stores/darkMode";
+import DataLoader from "@/components/DataLoader.vue";
+import DateRangeSearch from "@/components/DateRangeSearch.vue";
+import VoucherEntry from "@/components/Forms/VoucherEntry.vue";
+import VoucherPreview from "@/components/VoucherPreview.vue";
 
 const pinia = createPinia();
-createApp(App).use(router).use(pinia).use(AxiosPlugin).mount("#app");
+const app = createApp(App);
+app.use(router);
+app.use(pinia);
+app.use(AxiosPlugin);
+app.component("DataLoader", DataLoader);
+app.component("DateRangeSearch", DateRangeSearch);
+app.component("VoucherEntry", VoucherEntry);
+app.component("VoucherPreview", VoucherPreview);
+app.mount("#app");
 
 const darkModeStore = useDarkModeStore(pinia);
 

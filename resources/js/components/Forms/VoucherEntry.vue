@@ -4,90 +4,92 @@
       <div class="flex items-center text-lg">Journal Entry {{ voucherNo ? `(${voucherNo})` : "" }}</div>
     </template>
     <template #body>
-      <div class="p-4 space-y-4">
-        <div class="flex">
-          <div class="flex items-center space-x-4 m-1">
-            <label class="font-semibold">Entry Date:</label>
-            <input
-              type="date"
-              v-model="formData.transactionDate"
-              :max="calenderMaxDate"
-              class="border rounded px-2 py-1"
-            />
+      <DataLoader :isLoading="isLoading">
+        <div class="p-4 space-y-4">
+          <div class="flex">
+            <div class="flex items-center space-x-4 m-1">
+              <label class="font-semibold">Entry Date:</label>
+              <input
+                type="date"
+                v-model="formData.transactionDate"
+                :max="calenderMaxDate"
+                class="border rounded px-2 py-1"
+              />
+            </div>
+            <div class="flex items-center space-x-4 m-1">
+              <label class="font-semibold">Reference no:</label>
+              <input type="text" v-model="formData.referenceNo" class="border rounded px-2 py-1" />
+            </div>
           </div>
-          <div class="flex items-center space-x-4 m-1">
-            <label class="font-semibold">Reference no:</label>
-            <input type="text" v-model="formData.referenceNo" class="border rounded px-2 py-1" />
+
+          <table>
+            <thead>
+              <tr>
+                <td width="35%">Account</td>
+                <td width="20%">Debit</td>
+                <td width="20%">Credit</td>
+                <td width="15%">
+                  Action <fwb-button type="button" @click="addTransaction" color="green" class="m-1"> + </fwb-button>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(transaction, index) in formData.transactions" :key="index">
+                <td>
+                  <multiselect
+                    v-model="transaction.account"
+                    :options="accountOptions"
+                    placeholder="Select Account"
+                    label="name"
+                    track-by="id"
+                  ></multiselect>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    v-model.number="transaction.debit_amount"
+                    placeholder="Debit Amount"
+                    class="border rounded px-2 py-1 w-24"
+                    min="0"
+                    step="0.01"
+                    @change="resetCredit($event, index)"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    v-model.number="transaction.credit_amount"
+                    placeholder="Credit Amount"
+                    class="border rounded px-2 py-1 w-24"
+                    min="0"
+                    step="0.01"
+                    @change="resetDebit($event, index)"
+                  />
+                </td>
+                <td>
+                  <fwb-button
+                    v-if="index === formData.transactions.length - 1"
+                    type="button"
+                    @click="addTransaction"
+                    color="green"
+                    class="m-1"
+                  >
+                    +
+                  </fwb-button>
+
+                  <fwb-button type="button" @click="removeTransaction(index, transaction)" color="red" class="m-1">
+                    X
+                  </fwb-button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <label class="block mb-2">Description:</label>
+            <textarea v-model="formData.description" class="w-full border rounded px-2 py-1" rows="3"></textarea>
           </div>
         </div>
-
-        <table>
-          <thead>
-            <tr>
-              <td width="35%">Account</td>
-              <td width="20%">Debit</td>
-              <td width="20%">Credit</td>
-              <td width="15%">
-                Action <fwb-button type="button" @click="addTransaction" color="green" class="m-1"> + </fwb-button>
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(transaction, index) in formData.transactions" :key="index">
-              <td>
-                <multiselect
-                  v-model="transaction.account"
-                  :options="accountOptions"
-                  placeholder="Select Account"
-                  label="name"
-                  track-by="id"
-                ></multiselect>
-              </td>
-              <td>
-                <input
-                  type="number"
-                  v-model.number="transaction.debit_amount"
-                  placeholder="Debit Amount"
-                  class="border rounded px-2 py-1 w-24"
-                  min="0"
-                  step="0.01"
-                  @change="resetCredit($event, index)"
-                />
-              </td>
-              <td>
-                <input
-                  type="number"
-                  v-model.number="transaction.credit_amount"
-                  placeholder="Credit Amount"
-                  class="border rounded px-2 py-1 w-24"
-                  min="0"
-                  step="0.01"
-                  @change="resetDebit($event, index)"
-                />
-              </td>
-              <td>
-                <fwb-button
-                  v-if="index === formData.transactions.length - 1"
-                  type="button"
-                  @click="addTransaction"
-                  color="green"
-                  class="m-1"
-                >
-                  +
-                </fwb-button>
-
-                <fwb-button type="button" @click="removeTransaction(index, transaction)" color="red" class="m-1">
-                  X
-                </fwb-button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div>
-          <label class="block mb-2">Description:</label>
-          <textarea v-model="formData.description" class="w-full border rounded px-2 py-1" rows="3"></textarea>
-        </div>
-      </div>
+      </DataLoader>
     </template>
     <template #footer>
       <div class="flex justify-between">
@@ -101,6 +103,7 @@
   import { FwbModal, FwbButton } from "flowbite-vue";
   import { ref, onMounted, computed } from "vue";
   import { Multiselect } from "vue-multiselect";
+
   import Swal from "sweetalert2";
 
   const emit = defineEmits(["closeTransactionModal", "closeTransactionModalSuccess"]);
@@ -133,7 +136,7 @@
     description: "",
     deleted_transaction_details: [],
   });
-
+  const isLoading = ref(false);
   const accountOptions = ref([]);
   const calenderMaxDate = new Date().toISOString().split("T")[0];
 
@@ -251,9 +254,17 @@
     }
   };
   onMounted(async () => {
-    await fetchAccounts();
-    if (props.transactionId > 0) {
-      await fetchEditData();
+    try {
+      isLoading.value = true;
+      await fetchAccounts();
+      if (props.transactionId > 0) {
+        await fetchEditData();
+      }
+      isLoading.value = false;
+    } catch (error) {
+      console.log(error);
+      Swal.fire("Failed to get data");
+      isLoading.value = false;
     }
   });
 </script>

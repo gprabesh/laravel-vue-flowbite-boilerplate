@@ -66,7 +66,8 @@ export default [
     icon: mdiCogBox,
     menu: [
       {
-        label: "Company",
+        label: "Account Category",
+        to: "/account-categories",
       },
     ],
   },

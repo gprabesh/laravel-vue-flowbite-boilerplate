@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AccountCategoryController;
 use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -69,6 +70,9 @@ Route::prefix('api')->group(function () {
             Route::get('transactions/get-ledger-data/{account}', [TransactionController::class, 'getLedgerData']);
             Route::get('transactions/get-trial-balance-data', [TransactionController::class, 'getTrialBalanceData']);
             Route::resource('transactions', TransactionController::class);
+            Route::get('get-parent-categories', [AccountCategoryController::class, 'getParentCategories']);
+            Route::get('get-account-classes', [AccountCategoryController::class, 'getAccountClasses']);
+            Route::resource('account-categories', AccountCategoryController::class);
         });
     });
 });

@@ -34,11 +34,8 @@
   import BaseButton from "@/components/BaseButton.vue";
   import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
   import { TabulatorFull as Tabulator } from "tabulator-tables";
-  import VoucherEntry from "@/components/Forms/VoucherEntry.vue";
-  import VoucherPreview from "@/components/VoucherPreview.vue";
   import Swal from "sweetalert2";
-  import DateRangeSearch from "@/components/DateRangeSearch.vue";
-  import DataLoader from "@/components/DataLoader.vue";
+
   import { useDateRangeSearch } from "@/stores/dateRangeSearch";
   const showTransactionModal = ref(false);
   const showVoucherPreviewModal = ref(false);

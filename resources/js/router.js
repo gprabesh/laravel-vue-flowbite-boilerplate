@@ -4,6 +4,7 @@ import JournalVoucher from "@/pages/JournalVoucher.vue";
 import Ledger from "@/pages/Ledger.vue";
 import TrialBalance from "@/pages/TrialBalance.vue";
 import AccountCategory from "@/pages/setups/AccountCategory.vue";
+import Account from "@/pages/setups/Account.vue";
 import { useUserStore } from "@/stores/user";
 
 const routes = [
@@ -51,6 +52,15 @@ const routes = [
     path: "/account-categories",
     name: "account-categories",
     component: AccountCategory,
+  },
+  {
+    meta: {
+      title: "Accounts",
+      requiresAuth: true,
+    },
+    path: "/accounts",
+    name: "accounts",
+    component: Account,
   },
 
   {

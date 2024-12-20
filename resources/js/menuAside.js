@@ -31,36 +31,36 @@ export default [
     icon: mdiTable,
     label: "Trial Balance",
   },
-  {
-    to: "/tables",
-    label: "Tables",
-    icon: mdiTable,
-  },
-  {
-    to: "/forms",
-    label: "Forms",
-    icon: mdiSquareEditOutline,
-  },
-  {
-    to: "/ui",
-    label: "UI",
-    icon: mdiTelevisionGuide,
-  },
-  {
-    to: "/responsive",
-    label: "Responsive",
-    icon: mdiResponsive,
-  },
-  {
-    to: "/profile",
-    label: "Profile",
-    icon: mdiAccountCircle,
-  },
-  {
-    to: "/error",
-    label: "Error",
-    icon: mdiAlertCircle,
-  },
+  // {
+  //   to: "/tables",
+  //   label: "Tables",
+  //   icon: mdiTable,
+  // },
+  // {
+  //   to: "/forms",
+  //   label: "Forms",
+  //   icon: mdiSquareEditOutline,
+  // },
+  // {
+  //   to: "/ui",
+  //   label: "UI",
+  //   icon: mdiTelevisionGuide,
+  // },
+  // {
+  //   to: "/responsive",
+  //   label: "Responsive",
+  //   icon: mdiResponsive,
+  // },
+  // {
+  //   to: "/profile",
+  //   label: "Profile",
+  //   icon: mdiAccountCircle,
+  // },
+  // {
+  //   to: "/error",
+  //   label: "Error",
+  //   icon: mdiAlertCircle,
+  // },
   {
     label: "Setup",
     icon: mdiCogBox,
@@ -68,6 +68,10 @@ export default [
       {
         label: "Account Category",
         to: "/account-categories",
+      },
+      {
+        label: "Accounts",
+        to: "/accounts",
       },
     ],
   },

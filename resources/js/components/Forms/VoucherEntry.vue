@@ -218,13 +218,13 @@
     formSubmitData.transaction_date = formData.value.transactionDate;
     formSubmitData.deleted_transaction_details = formData.value.deleted_transaction_details;
     try {
+      let url = "/transactions";
       if (props.transactionId > 0) {
         formSubmitData._method = "PUT";
-        await axios.post("/transactions/" + props.transactionId, formSubmitData);
-      } else {
-        await axios.post("/transactions", formSubmitData);
+        url = "/transactions/" + props.transactionId;
       }
-      Swal.fire("Journal Saved");
+      const response = await axios.post(url, formSubmitData);
+      Swal.fire(response?.data?.message);
       emit("closeTransactionModalSuccess");
     } catch (error) {
       console.log(error);

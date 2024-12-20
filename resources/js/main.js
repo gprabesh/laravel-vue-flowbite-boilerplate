@@ -31,7 +31,7 @@ if (
   darkModeStore.set(false);
 }
 
-const defaultDocumentTitle = "Admin One Vue 3 Tailwind";
+const defaultDocumentTitle = import.meta.env.VITE_APP_NAME ?? "Finance";
 
 router.afterEach((to) => {
   document.title = to.meta?.title ? `${to.meta.title} — ${defaultDocumentTitle}` : defaultDocumentTitle;

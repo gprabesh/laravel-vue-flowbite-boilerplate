@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Account;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Api\AccountRequest;
 
 class AccountController extends Controller
 {
@@ -14,7 +16,7 @@ class AccountController extends Controller
     public function index(Request $request)
     {
         $company_id = $request->company_id;
-        $accounts = Account::select('id', 'name', 'is_cost_center', 'is_opening_balance_account', 'company_id')->where('company_id', $company_id)->get();
+        $accounts = Account::with(['category:id,name'])->select('id', 'name', 'is_cost_center', 'is_opening_balance_account', 'company_id', 'account_category_id')->where('company_id', $company_id)->where('is_opening_balance_account', 0)->get();
         return $this->jsonResponse(data: ['accounts' => $accounts]);
     }
 
@@ -29,9 +31,11 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AccountRequest $request)
     {
-        //
+        $company_id = $request->company_id;
+        $account = Account::create(array_merge($request->validated(), ['created_by' => Auth::id(), 'company_id' => $company_id]));
+        return $this->jsonResponse(message: 'Account created');
     }
 
     /**
@@ -47,15 +51,16 @@ class AccountController extends Controller
      */
     public function edit(Account $account)
     {
-        //
+        return $this->jsonResponse(data: ['account' => $account]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Account $account)
+    public function update(AccountRequest $request, Account $account)
     {
-        //
+        $account->update(array_merge($request->validated(), ['updated_by' => Auth::id()]));
+        return $this->jsonResponse(message: 'Account Updated');
     }
 
     /**

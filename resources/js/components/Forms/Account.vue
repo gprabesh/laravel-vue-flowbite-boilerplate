@@ -1,7 +1,7 @@
 <template>
   <fwb-modal size="7xl" v-if="showCrudModal" :not-escapable="notEscapable" :persistent="persistent">
     <template #header>
-      <div class="flex items-center text-lg">Account Category</div>
+      <div class="flex items-center text-lg">Account</div>
     </template>
     <template #body>
       <DataLoader :isLoading="isLoading">
@@ -18,28 +18,19 @@
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-700">Account Class</label>
+              <label class="block text-sm font-medium text-gray-700">Account Category</label>
               <select
-                v-model="formData.account_class_id"
+                v-model="formData.account_category_id"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 required
               >
-                <option :value="null">Select Account Class</option>
-                <option v-for="accountClass in accountClasses" :key="accountClass.id" :value="accountClass.id">
-                  {{ accountClass.name }}
-                </option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-700">Parent Category (Optional)</label>
-              <select
-                v-model="formData.parent_id"
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              >
-                <option :value="null">No Parent</option>
-                <option v-for="category in parentCategories" :key="category.id" :value="category.id">
-                  {{ category.name }}
+                <option :value="null">Select Account Category</option>
+                <option
+                  v-for="accountCategory in accountCategories"
+                  :key="accountCategory.id"
+                  :value="accountCategory.id"
+                >
+                  {{ accountCategory.name }}
                 </option>
               </select>
             </div>
@@ -50,12 +41,12 @@
     <template #footer>
       <div class="flex justify-between">
         <fwb-button @click="$emit('closeCrudModal', false)" color="alternative"> Close </fwb-button>
-        <fwb-button @click="submitForm()" color="green"> {{ categoryId ? "Update" : "Create" }} </fwb-button>
+        <fwb-button @click="submitForm()" color="green"> {{ accountId ? "Update" : "Create" }} </fwb-button>
       </div>
     </template>
   </fwb-modal>
 </template>
-<script setup name="AccountCategory">
+<script setup name="Account">
   import { FwbModal, FwbButton } from "flowbite-vue";
   import { ref, onMounted } from "vue";
 
@@ -76,18 +67,16 @@
       type: Boolean,
       default: true,
     },
-    categoryId: {
+    accountId: {
       type: Number,
       default: null,
     },
   });
   const formData = ref({
     name: "",
-    account_class_id: null,
-    parent_id: null,
+    account_category_id: null,
   });
-  const accountClasses = ref([]);
-  const parentCategories = ref([]);
+  const accountCategories = ref([]);
   const isLoading = ref(false);
 
   const validateForm = () => {
@@ -96,8 +85,8 @@
       Swal.fire("Name is required");
       valid = false;
     }
-    if (!formData.value.account_class_id) {
-      Swal.fire("Account class is required");
+    if (!formData.value.account_category_id) {
+      Swal.fire("Account category is required");
       valid = false;
     }
     return valid;
@@ -108,10 +97,10 @@
       return;
     }
     try {
-      let url = `/account-categories`;
-      if (props.categoryId > 0) {
+      let url = `/accounts`;
+      if (props.accountId > 0) {
         formData.value._method = "PUT";
-        url = "/account-categories/" + props.categoryId;
+        url = "/accounts/" + props.accountId;
       }
       const response = await axios.post(url, formData.value);
       Swal.fire(response?.data?.message);
@@ -121,42 +110,32 @@
       Swal.fire("Failed to save data");
     }
   };
-  const fetchAccountClasses = async () => {
+  const fetchAccountCategories = async () => {
     try {
-      const response = await axios.get("/get-account-classes");
-      accountClasses.value = response.data.account_classes;
+      const response = await axios.get("/account-categories");
+      accountCategories.value = response.data.account_categories;
     } catch (error) {
-      console.error("Error fetching account classes:", error);
+      console.error("Error fetching account categories:", error);
     }
   };
-  const fetchParentCategories = async () => {
+  const fetchAccount = async () => {
+    if (!props.accountId) return;
     try {
-      const response = await axios.get("/get-parent-categories");
-      parentCategories.value = response.data.parent_categories;
-    } catch (error) {
-      console.error("Error fetching parent categories:", error);
-    }
-  };
-  const fetchCategory = async () => {
-    if (!props.categoryId) return;
-    try {
-      const response = await axios.get(`account-categories/${props.categoryId}/edit`);
+      const response = await axios.get(`accounts/${props.accountId}/edit`);
       formData.value = {
-        name: response.data.account_category.name,
-        account_class_id: response.data.account_category.account_class_id,
-        parent_id: response.data.account_category.parent_id,
+        name: response.data.account.name,
+        account_category_id: response.data.account.account_category_id,
       };
     } catch (error) {
-      console.error("Error fetching category:", error);
+      console.error("Error fetching account:", error);
     }
   };
   onMounted(async () => {
     try {
       isLoading.value = true;
-      await fetchAccountClasses();
-      await fetchParentCategories();
-      if (props.categoryId > 0) {
-        await fetchCategory();
+      await fetchAccountCategories();
+      if (props.accountId > 0) {
+        await fetchAccount();
       }
       isLoading.value = false;
     } catch (error) {

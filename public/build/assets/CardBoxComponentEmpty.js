@@ -1,1 +1,1 @@
-import{a1 as t,o,p as r,h as s}from"./main.js";const n={},a={class:"text-center py-24 text-gray-500 dark:text-slate-400"};function c(p,e){return o(),r("div",a,e[0]||(e[0]=[s("p",null,"Nothing's here…",-1)]))}const d=t(n,[["render",c]]);export{d as C};
+import{$ as t,o,t as r,h as s}from"./main.js";const n={},a={class:"text-center py-24 text-gray-500 dark:text-slate-400"};function c(p,e){return o(),r("div",a,e[0]||(e[0]=[s("p",null,"Nothing's here…",-1)]))}const d=t(n,[["render",c]]);export{d as C};

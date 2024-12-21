@@ -6,24 +6,24 @@
       "resources/js/main.js"
     ]
   },
+  "_FormCheckRadio.js": {
+    "file": "assets/FormCheckRadio.js",
+    "name": "FormCheckRadio",
+    "imports": [
+      "resources/js/main.js"
+    ]
+  },
   "_FormCheckRadioGroup.js": {
     "file": "assets/FormCheckRadioGroup.js",
     "name": "FormCheckRadioGroup",
     "imports": [
-      "_FormField.js",
+      "_FormCheckRadio.js",
       "resources/js/main.js"
     ]
   },
   "_FormField.js": {
     "file": "assets/FormField.js",
     "name": "FormField",
-    "imports": [
-      "resources/js/main.js"
-    ]
-  },
-  "_FormFilePicker.js": {
-    "file": "assets/FormFilePicker.js",
-    "name": "FormFilePicker",
     "imports": [
       "resources/js/main.js"
     ]
@@ -120,9 +120,9 @@
     "imports": [
       "resources/js/main.js",
       "_FormCheckRadioGroup.js",
-      "_FormFilePicker.js",
       "_FormField.js",
-      "_SectionTitle.js"
+      "_SectionTitle.js",
+      "_FormCheckRadio.js"
     ]
   },
   "resources/js/views/LoginView.vue": {
@@ -133,6 +133,7 @@
     "imports": [
       "resources/js/main.js",
       "_LayoutGuest.js",
+      "_FormCheckRadio.js",
       "_FormField.js"
     ]
   },
@@ -143,8 +144,7 @@
     "isDynamicEntry": true,
     "imports": [
       "resources/js/main.js",
-      "_FormField.js",
-      "_FormFilePicker.js"
+      "_FormField.js"
     ]
   },
   "resources/js/views/ResponsiveView.vue": {
@@ -177,7 +177,8 @@
       "_SectionTitle.js",
       "_FormField.js",
       "_FormCheckRadioGroup.js",
-      "_CardBoxComponentEmpty.js"
+      "_CardBoxComponentEmpty.js",
+      "_FormCheckRadio.js"
     ]
   }
 }

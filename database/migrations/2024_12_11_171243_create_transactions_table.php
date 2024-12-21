@@ -19,6 +19,7 @@ return new class extends Migration
             $table->char('voucher_type')->default('JV');
             $table->text('description')->nullable();
             $table->decimal('transaction_amount', 15, 2)->default(0);
+            $table->string('used_accounts')->index();
             $table->tinyInteger('is_opening_balance_transaction')->default(0);
             $table->foreignId('account_book_id')->constrained('account_books', 'id');
             $table->foreignId('company_id')->constrained('companies', 'id');

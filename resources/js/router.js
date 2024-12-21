@@ -5,17 +5,18 @@ import Ledger from "@/pages/Ledger.vue";
 import TrialBalance from "@/pages/TrialBalance.vue";
 import AccountCategory from "@/pages/setups/AccountCategory.vue";
 import Account from "@/pages/setups/Account.vue";
+import User from "@/pages/setups/User.vue";
 import { useUserStore } from "@/stores/user";
 
 const routes = [
   {
     meta: {
-      title: "Dashboard",
+      title: "Journal Voucher",
       requiresAuth: true,
     },
-    path: "/dashboard",
-    name: "dashboard",
-    component: Home,
+    path: "/",
+    name: "default",
+    component: JournalVoucher,
   },
   {
     meta: {
@@ -25,6 +26,15 @@ const routes = [
     path: "/journal-voucher",
     name: "journal-voucher",
     component: JournalVoucher,
+  },
+  {
+    meta: {
+      title: "Dashboard",
+      requiresAuth: true,
+    },
+    path: "/dashboard",
+    name: "dashboard",
+    component: Home,
   },
   {
     meta: {
@@ -61,6 +71,15 @@ const routes = [
     path: "/accounts",
     name: "accounts",
     component: Account,
+  },
+  {
+    meta: {
+      title: "Users",
+      requiresAuth: true,
+    },
+    path: "/users",
+    name: "users",
+    component: User,
   },
 
   {

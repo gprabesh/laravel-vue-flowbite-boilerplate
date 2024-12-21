@@ -36,13 +36,14 @@
             <tbody>
               <tr v-for="(transaction, index) in formData.transactions" :key="index">
                 <td>
-                  <multiselect
+                  <Multiselect
                     v-model="transaction.account"
                     :options="accountOptions"
                     placeholder="Select Account"
                     label="name"
+                    open-direction="bottom"
                     track-by="id"
-                  ></multiselect>
+                  ></Multiselect>
                 </td>
                 <td>
                   <input
@@ -102,7 +103,6 @@
 <script setup name="VoucherEntry">
   import { FwbModal, FwbButton } from "flowbite-vue";
   import { ref, onMounted, computed } from "vue";
-  import { Multiselect } from "vue-multiselect";
 
   import Swal from "sweetalert2";
 
@@ -200,6 +200,17 @@
   };
 
   const submitForm = async () => {
+    const confirmation = await Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirm",
+    });
+    if (!confirmation.isConfirmed) {
+      return;
+    }
     if (!validateForm()) {
       return;
     }

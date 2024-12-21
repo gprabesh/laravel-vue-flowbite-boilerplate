@@ -93,6 +93,17 @@
   };
 
   const submitForm = async () => {
+    const confirmation = await Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirm",
+    });
+    if (!confirmation.isConfirmed) {
+      return;
+    }
     if (!validateForm()) {
       return;
     }

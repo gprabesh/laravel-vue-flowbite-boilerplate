@@ -6,9 +6,10 @@ use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class FiscalYear extends Model
+class UserAccountBook extends Model
 {
     use LogsActivity;
+    protected $table = 'users_account_books';
 
     public function getActivitylogOptions(): LogOptions
     {

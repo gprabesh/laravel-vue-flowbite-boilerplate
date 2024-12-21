@@ -38,26 +38,12 @@
 
 <template>
   <SectionMain>
-    <SectionTitleLineWithButton :icon="mdiAccount" title="Profile" main>
-      <BaseButton
-        href="https://github.com/justboil/admin-one-vue-tailwind"
-        target="_blank"
-        :icon="mdiGithub"
-        label="Star on GitHub"
-        color="contrast"
-        rounded-full
-        small
-      />
-    </SectionTitleLineWithButton>
+    <SectionTitleLineWithButton :icon="mdiAccount" title="Profile" main> </SectionTitleLineWithButton>
 
     <UserCard class="mb-6" />
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <CardBox is-form @submit.prevent="submitProfile">
-        <FormField label="Avatar" help="Max 500kb">
-          <FormFilePicker label="Upload" />
-        </FormField>
-
         <FormField label="Name" help="Required. Your name">
           <FormControl v-model="profileForm.name" :icon="mdiAccount" name="username" required autocomplete="username" />
         </FormField>
@@ -68,6 +54,7 @@
             type="email"
             name="email"
             required
+            :disabled="true"
             autocomplete="email"
           />
         </FormField>

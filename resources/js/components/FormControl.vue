@@ -47,6 +47,10 @@
     borderless: Boolean,
     transparent: Boolean,
     ctrlKFocus: Boolean,
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   });
 
   const emit = defineEmits(["update:modelValue", "setRef"]);
@@ -136,6 +140,7 @@
       :placeholder="placeholder"
       :type="computedType"
       :class="inputElClass"
+      :disabled="disabled"
     />
     <FormControlIcon v-if="icon" :icon="icon" :h="controlIconH" />
   </div>

@@ -73,6 +73,10 @@ export default [
         label: "Accounts",
         to: "/accounts",
       },
+      {
+        label: "Users",
+        to: "/users",
+      },
     ],
   },
 ];

@@ -12,9 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users_account_books', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->foreignId('account_book_id')->constrained('account_books', 'id');
             $table->tinyInteger('is_preferred')->default(0);
+            $table->timestamps();
+            $table->unique(['user_id', 'account_book_id']);
         });
     }
 

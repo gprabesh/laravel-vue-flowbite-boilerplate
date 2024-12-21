@@ -66,7 +66,8 @@ class Helper
         $opening_balance_object = (object)[
             'id' => 0,
             'transaction_date' => null,
-            'voucher_no' => 'Opening Balance',
+            'voucher_no' => null,
+            'particulars' => 'Opening Balance',
             'reference_no' => null,
             'description' => null,
             'created_by' => null,
@@ -79,22 +80,24 @@ class Helper
             ->join('accounts as a', 'a.id', '=', 'td.account_id')
             ->join('transactions as t', 't.id', '=', 'td.transaction_id')
             ->join('users as u', 't.created_by', '=', 'u.id')
-            ->where('td.account_id', $account_id)
+            ->where('td.account_id', '<>', $account_id)
             ->when($from && $to, function ($query) use ($from, $to) {
                 return $query->whereBetween('t.transaction_date', [$from, $to]);
             })
             ->where('t.is_opening_balance_transaction', 0)
+            ->whereRaw("FIND_IN_SET(?,t.used_accounts)", [$account_id])
             ->orderBy('t.transaction_date')
             ->orderBy('t.voucher_no', 'asc')
             ->select(
                 't.id',
                 't.transaction_date',
+                DB::raw("CONCAT(case when td.credit_amount > 0 then 'To ' else 'By ' end,a.name) as particulars"),
                 DB::raw('CONCAT(t.voucher_type, LPAD(t.voucher_no, 5, "0")) as voucher_no'),
                 't.reference_no',
                 't.description',
                 'u.name as created_by',
-                'td.debit_amount',
-                'td.credit_amount',
+                'td.debit_amount as credit_amount',
+                'td.credit_amount as debit_amount',
                 DB::raw('0 as balance'),
                 DB::raw("'DR' as balance_type")
             )

@@ -111,15 +111,15 @@
           headerFilter: true,
         },
         {
-          title: "Reference no.",
-          field: "reference_no",
+          title: "Particulars",
+          field: "particulars",
           frozen: true,
           headerFilterPlaceholder: " ",
           headerFilter: true,
         },
         {
-          title: "Description",
-          field: "description",
+          title: "Reference no.",
+          field: "reference_no",
           frozen: true,
           headerFilterPlaceholder: " ",
           headerFilter: true,
@@ -155,13 +155,23 @@
         },
         {
           title: "Balance",
+          field: "balance",
           frozen: true,
+          headerFilterPlaceholder: " ",
+          headerFilter: true,
           hozAlign: "right",
           formatter: function (cell) {
             const balance = cell.getRow().getData().balance;
             const balance_type = cell.getRow().getData().balance_type;
             return `${balance} ${balance_type}`;
           },
+        },
+        {
+          title: "Description",
+          field: "description",
+          frozen: true,
+          headerFilterPlaceholder: " ",
+          headerFilter: true,
         },
         {
           title: "Action",

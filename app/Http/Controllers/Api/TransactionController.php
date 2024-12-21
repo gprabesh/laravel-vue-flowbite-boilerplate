@@ -67,6 +67,7 @@ class TransactionController extends Controller
             $transactions = $request->input('transactions');
             $totalDebit = array_sum(array_column($transactions, 'debit_amount'));
             $totalCredit = array_sum(array_column($transactions, 'credit_amount'));
+            $used_accounts = implode(',', array_column($transactions, 'account_id'));
 
             if ($totalDebit !== $totalCredit) {
                 throw new CustomException('Total debit and credit amounts must be equal');
@@ -81,7 +82,8 @@ class TransactionController extends Controller
                 'updated_by' => Auth::id(),
                 'account_book_id' => $account_book_id,
                 'company_id' => $company_id,
-                'voucher_no' => Helper::generateVoucherNumber($account_book_id)
+                'voucher_no' => Helper::generateVoucherNumber($account_book_id),
+                'used_accounts' => $used_accounts,
             ]);
 
             foreach ($transactions as $detail) {
@@ -142,6 +144,7 @@ class TransactionController extends Controller
             $deletedTransactions = $request->input('deleted_transaction_details');
             $totalDebit = array_sum(array_column($transactions, 'debit_amount'));
             $totalCredit = array_sum(array_column($transactions, 'credit_amount'));
+            $used_accounts = implode(',', array_column($transactions, 'account_id'));
 
             if ($totalDebit !== $totalCredit) {
                 throw new CustomException('Total debit and credit amounts must be equal');
@@ -153,6 +156,7 @@ class TransactionController extends Controller
                 'description' => $request->input('description'),
                 'transaction_amount' => $totalDebit,
                 'updated_by' => Auth::id(),
+                'used_accounts' => $used_accounts,
             ]);
 
             foreach ($transactions as $detail) {

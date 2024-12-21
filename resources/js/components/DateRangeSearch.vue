@@ -3,13 +3,14 @@
     <!-- Account Input -->
     <div class="flex-grow" v-if="accountSelection">
       <label for="fromDate" class="block text-sm font-medium text-gray-700 mb-1"> From Date </label>
-      <multiselect
+      <Multiselect
         v-model="account"
         :options="accountOptions"
         placeholder="Select Account"
+        open-direction="bottom"
         label="name"
         track-by="id"
-      ></multiselect>
+      ></Multiselect>
     </div>
     <!-- From Date Input -->
     <div class="flex-grow">
@@ -46,7 +47,6 @@
 <script setup>
   import { ref, onMounted } from "vue";
   import { useDateRangeSearch } from "@/stores/dateRangeSearch";
-  import { Multiselect } from "vue-multiselect";
 
   import Swal from "sweetalert2";
 

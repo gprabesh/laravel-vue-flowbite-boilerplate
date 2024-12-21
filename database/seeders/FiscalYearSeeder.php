@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\AccountBook;
 use App\Models\FiscalYear;
+use App\Models\UserAccountBook;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class FiscalYearSeeder extends Seeder
@@ -25,7 +25,9 @@ class FiscalYearSeeder extends Seeder
             'company_id' => 1,
             'fiscal_year_id' => 1
         ]);
-        DB::table('users_account_books')->upsert(['user_id' => 1, 'account_book_id' => 1, 'is_preferred' => 1], [
+        UserAccountBook::updateOrCreate(['id' => 1], [
+            'user_id' => 1,
+            'account_book_id' => 1,
             'is_preferred' => 1
         ]);
     }

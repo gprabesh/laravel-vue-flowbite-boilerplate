@@ -21,7 +21,7 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        if ($this->method == 'POST') {
+        if ($this->method() == 'POST') {
             return [
                 'name' => 'required|string',
                 'email' => 'required|email|unique:users,email',

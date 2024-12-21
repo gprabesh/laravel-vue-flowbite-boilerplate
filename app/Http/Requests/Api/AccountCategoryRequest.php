@@ -22,7 +22,7 @@ class AccountCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        if ($this->method == 'POST') {
+        if ($this->method() == 'POST') {
             return [
                 'name' => 'required|string|max:255',
                 'account_class_id' => 'required|exists:account_classes,id',
@@ -38,7 +38,7 @@ class AccountCategoryRequest extends FormRequest
                 'parent_id' => [
                     'nullable',
                     'exists:account_categories,id',
-                    Rule::notIn([$this->id])
+                    Rule::notIn([$this->account_category->id])
                 ]
             ];
         }
